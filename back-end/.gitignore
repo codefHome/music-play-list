@@ -1,0 +1,28 @@
+# Node.js / Express
+node_modules/
+.env
+
+# Logs
+logs/
+*.log
+
+# Dependencies
+package-lock.json
+
+# Build output
+build/
+
+# Editor / IDE specific files
+.vscode/
+.idea/
+
+# macOS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux specific files
+*~
+
+# Windows specific files
+Thumbs.db
