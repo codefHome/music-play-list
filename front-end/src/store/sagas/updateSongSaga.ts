@@ -1,15 +1,18 @@
-import { put, takeEvery, call } from 'redux-saga/effects';
+import { put, takeEvery, call, select } from 'redux-saga/effects';
 import {  updateSongAPI } from '../../api/songAPI';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { FetchResponse,  } from '../../interfaces/songTypes';
+import { FetchResponse, FetchResponse2, FetchSongwithPaginationState,  } from '../../interfaces/songTypes';
 import { updateSongFailure, updateSongStart, updateSongSuccess } from '../slices/UpdateSongSlice';
 import { fetchSongsStart } from '../slices/songSlices';
+import { RootState } from '../store';
 
-function* updateSongSage(action: PayloadAction<FetchResponse>) {
+function* updateSongSage(action: PayloadAction<FetchResponse2>) {
   try {
-    const newItem:FetchResponse = yield call(updateSongAPI, action.payload);
+    const{limit}=action.payload
+    const newItem:FetchResponse = yield call(updateSongAPI,action.payload );
+    const { currentPage, }: FetchSongwithPaginationState = yield select((state: RootState) => state.songs);
     yield put(updateSongSuccess(newItem));
-    yield put(fetchSongsStart())
+    yield put(fetchSongsStart({ page: currentPage, limit }))
   } catch (error) {
    
     if (error instanceof Error) {

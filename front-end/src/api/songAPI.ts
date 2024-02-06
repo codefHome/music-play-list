@@ -1,6 +1,6 @@
 import axios from "axios";
 import { songEndpoint } from "./songEndpoint";
-import { FetchResponse, Song } from "../interfaces/songTypes";
+import {  FetchResponse2, Song } from "../interfaces/songTypes";
 axios.defaults.headers.common["Cache-Control"] = "no-cache";
 export const getAllSongsAPI = async (page:number,limit:number) => {
   const response = await axios.get(`${songEndpoint.fetchAllSong}?page=${page}&limit=${limit}`);
@@ -10,8 +10,8 @@ export const filterByGenreAPI = async (genre: string) => {
   const response = await axios.get(`${songEndpoint.filterByGenre}/${genre}`);
   return response;
 };
-export const deleteSongAPI = async (id: string) => {
-  const response = await axios.delete(`${songEndpoint.deleteSong}/${id}`);
+export const deleteSongAPI = async (data:{id:string,limit:number}) => {
+  const response = await axios.delete(`${songEndpoint.deleteSong}/${data.id}`);
   return response;
 };
 
@@ -19,7 +19,7 @@ export const addSongAPI = async (data: Song) => {
   const response = await axios.post(`${songEndpoint.addSongs}`, data);
   return response;
 };
-export const updateSongAPI = async (data: FetchResponse) => {
+export const updateSongAPI = async (data: FetchResponse2) => {
   const response = await axios.put(
     `${songEndpoint.updateSong}/${data?._id}`,
     data

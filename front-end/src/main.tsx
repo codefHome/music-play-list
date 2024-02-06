@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast'
 import Header from './Header.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <Header/>
@@ -27,5 +27,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               }}
             />
     </BrowserRouter>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

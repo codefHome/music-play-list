@@ -7,6 +7,20 @@ export interface Song {
 
 export interface FetchResponse extends Song {
   _id: string;
+  
+}
+export interface FetchResponse2  {
+  _id: string;
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  limit:number;
+}
+export interface FetchResponse1  {
+  payload:FetchResponse2
+  page:number;
+  limit:number;
 }
 export interface SongsState {
   data: FetchResponse[];
@@ -28,12 +42,16 @@ export interface UpdateSongState {
   error: string | null;
   open: boolean;
 }
+export interface SuccessResopnse{
+  data:{msg:string ,success:boolean }
+}
 
 export interface AddSongState {
   data: Song[];
   loading: boolean;
   error: string | null;
-  success: string | null;
+  successData: {msg:string | null,success:boolean | null}
+  isAdded: boolean | null
 }
 
 export interface CardProps {

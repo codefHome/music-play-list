@@ -3,16 +3,14 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import { addSongAPI } from '../../api/songAPI';
 import { addSongStart, addSongSuccess, addsongFailure } from '../slices/addSongSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Song } from '../../interfaces/songTypes';
+import { Song, SuccessResopnse } from '../../interfaces/songTypes';
 
 function* insertSongSaga(action: PayloadAction<Song>) {
   try {
-    const newItem:{msg:string,success:boolean} = yield call(addSongAPI, action.payload);
-   if(newItem.success){
-    yield put(addSongSuccess(newItem?.msg));
-   }else{
-    yield put(addsongFailure(newItem.msg));
-   }
+    const newItems:SuccessResopnse = yield call(addSongAPI, action.payload);
+    yield put(addSongSuccess(newItems.data));
+    // yield put(addsongFailure(newItems.data.msg));
+   
    
   } catch (error) {
    

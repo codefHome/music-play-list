@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Box from "../components/Box";
 
 import Typography from "../components/Typography";
@@ -23,16 +23,17 @@ const ViewListOfSong = () => {
     (state) => state.songs
   );
 
-  // const { data:filteredSong } = useAppSelector((state) => state.filterSong);
+  const { data:filteredSong } = useAppSelector((state) => state.filterSong);
   const { open } = useAppSelector((state) => state.updateSong);
   const [searchParams, setSearchParams] = useSearchParams();
   const [songTitle, setSongTitle] = useState<string>("");
   const dispatch = useAppDispatch();
-  // const[genre,setGenre]=useState<string>('')
+  const[genre,setGenre]=useState<string>('')
   useEffect(() => {
     dispatch(fetchSongsStart({ page: currentPage, limit: 7 }));
-    dispatch(filterByGenreStart("asdf"));
-  }, [dispatch, currentPage]);
+    if(genre !== ''){
+    dispatch(filterByGenreStart(genre));}
+  }, [dispatch, currentPage,genre]);
   const tableHeaders = [
     { id: 1, title: "Title" },
     { id: 2, title: "Artist" },
@@ -64,7 +65,8 @@ const ViewListOfSong = () => {
     dispatch(setIsEdit(false));
   };
   const handleDelete = () => {
-    dispatch(deleteSongStart(searchParams.get("id") ?? ""));
+    const deleteData={id:searchParams.get("id") ?? "",limit:7}
+    dispatch(deleteSongStart(deleteData));
     searchParams.delete("id");
     window.history.replaceState({}, "", url.href.split("?")[0]);
     setOpenConfirm(false);
@@ -91,9 +93,10 @@ const ViewListOfSong = () => {
       dispatch(fetchSongsStart({ page: currentPage - 1, limit: 7 }));
     }
   };
-// const handleFilter = (event:ChangeEvent<HTMLInputElement>) =>{
-// setGenre(event.target.value)
-// }
+const handleFilter = (event:ChangeEvent<HTMLInputElement>) =>{
+setGenre(event.target.value)
+}
+console.log({genre})
   return (
     <>
       <Box display="flex" width="100%" mb='-15px' mt='20px' >
@@ -108,7 +111,7 @@ const ViewListOfSong = () => {
             flexDirection="column"
            
           >
-            <TextField  borderRadius='10px' mb={3} placeholder="filter using genre" width='50%' />
+            <TextField onChange={handleFilter}  borderRadius='10px' mb={3} placeholder="filter using genre" width='50%' />
             <Table  >
               <thead>
                 <Row>
@@ -131,7 +134,7 @@ const ViewListOfSong = () => {
                     <Typography variant="heading2">Loading ...</Typography>
                   </Box>
                 ) : (
-                  songs.map((item) => (
+              ( genre === '' ? songs : filteredSong).map((item) => (
                     <Row key={item?._id} >
                       <Cell variant="secondary">{item?.title}</Cell>
                       <Cell variant="secondary">{item?.artist}</Cell>
