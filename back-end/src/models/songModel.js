@@ -24,15 +24,6 @@ const SongModel = new Schema({
 }
 );
 
-SongModel.pre('save', function (next) {
-  this.updatedAt = Date.now();
-  next();
-});
-
-SongModel.pre('findOneAndUpdate', function (next) {
-  this._update.updatedAt = Date.now();
-  next();
-});
 const Song = model('songs', SongModel);
 
 module.exports= Song

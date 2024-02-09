@@ -1,27 +1,13 @@
+import { Controller } from "react-hook-form";
+import Box from "./Box";
+import Typography from "./Typography";
+import TextField from "./TextField";
+import { InputFieldProp } from "../interfaces/songTypes";
 
-
-import {  Controller } from 'react-hook-form';
-import Box from './Box';
-import Typography from './Typography';
-import TextField from './TextField';
-interface InputFieldProp {
-  label: string;
-  id: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: any;
-  placeholder: string;
-}
-const InputField = ({
-  label,
-  id,
-  control,
-  placeholder,
-}: InputFieldProp) => {
-  
-
+const InputField = ({ label, id, control, placeholder }: InputFieldProp) => {
   return (
-    <Box  variant='primary'>
-      <Typography variant="heading2" marginBottom='-10px'>
+    <Box variant="primary">
+      <Typography variant="heading2" marginBottom="-10px">
         {label}:
       </Typography>
       <Controller
@@ -32,12 +18,10 @@ const InputField = ({
             {...field}
             id={id}
             placeholder={placeholder}
-            borderRadius='10px'
+            borderRadius="10px"
           />
-         
         )}
       />
-      
     </Box>
   );
 };

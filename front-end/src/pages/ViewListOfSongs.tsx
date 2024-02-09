@@ -23,17 +23,18 @@ const ViewListOfSong = () => {
     (state) => state.songs
   );
 
-  const { data:filteredSong } = useAppSelector((state) => state.filterSong);
+  const { data: filteredSong } = useAppSelector((state) => state.filterSong);
   const { open } = useAppSelector((state) => state.updateSong);
   const [searchParams, setSearchParams] = useSearchParams();
   const [songTitle, setSongTitle] = useState<string>("");
   const dispatch = useAppDispatch();
-  const[genre,setGenre]=useState<string>('')
+  const [genre, setGenre] = useState<string>("");
   useEffect(() => {
     dispatch(fetchSongsStart({ page: currentPage, limit: 7 }));
-    if(genre !== ''){
-    dispatch(filterByGenreStart(genre));}
-  }, [dispatch, currentPage,genre]);
+    if (genre !== "") {
+      dispatch(filterByGenreStart(genre));
+    }
+  }, [dispatch, currentPage, genre]);
   const tableHeaders = [
     { id: 1, title: "Title" },
     { id: 2, title: "Artist" },
@@ -65,7 +66,7 @@ const ViewListOfSong = () => {
     dispatch(setIsEdit(false));
   };
   const handleDelete = () => {
-    const deleteData={id:searchParams.get("id") ?? "",limit:7}
+    const deleteData = { id: searchParams.get("id") ?? "", limit: 7 };
     dispatch(deleteSongStart(deleteData));
     searchParams.delete("id");
     window.history.replaceState({}, "", url.href.split("?")[0]);
@@ -93,26 +94,27 @@ const ViewListOfSong = () => {
       dispatch(fetchSongsStart({ page: currentPage - 1, limit: 7 }));
     }
   };
-const handleFilter = (event:ChangeEvent<HTMLInputElement>) =>{
-setGenre(event.target.value)
-}
-console.log({genre})
+  const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
+    setGenre(event.target.value);
+  };
+  console.log({ genre });
   return (
     <>
-      <Box display="flex" width="100%" mb='-15px' mt='20px' >
-        <Box width="100%" >
+      <Box display="flex" width="100%" mb="-15px" mt="20px">
+        <Box width="100%">
           <Box variant="primary">
             <Typography variant="heading1">Song List</Typography>
           </Box>
 
-          <Box
-          variant="secondary"
-            display="flex"
-            flexDirection="column"
-           
-          >
-            <TextField onChange={handleFilter}  borderRadius='10px' mb={3} placeholder="filter using genre" width='50%' />
-            <Table  >
+          <Box variant="secondary" display="flex" flexDirection="column">
+            <TextField
+              onChange={handleFilter}
+              borderRadius="10px"
+              mb={3}
+              placeholder="filter using genre"
+              width="50%"
+            />
+            <Table>
               <thead>
                 <Row>
                   {tableHeaders.map((item) => (
@@ -122,7 +124,21 @@ console.log({genre})
                   ))}
                 </Row>
               </thead>
-              <tbody style={{position:'relative'}}>
+              <tbody style={{ position: "relative", height: "200px" }}>
+                {songs?.length === 0 ||
+                  (filteredSong?.length === 0 && genre !== "" && (
+                    <Box
+                      color="black"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      variant="loading"
+                    >
+                      <Typography variant="heading2">
+                        No Record Found
+                      </Typography>
+                    </Box>
+                  ))}
                 {loading ? (
                   <Box
                     color="black"
@@ -134,28 +150,32 @@ console.log({genre})
                     <Typography variant="heading2">Loading ...</Typography>
                   </Box>
                 ) : (
-              ( genre === '' ? songs : filteredSong).map((item) => (
-                    <Row key={item?._id} >
-                      <Cell variant="secondary">{item?.title}</Cell>
-                      <Cell variant="secondary">{item?.artist}</Cell>
-                      <Cell variant="secondary">{item?.album}</Cell>
-                      <Cell variant="secondary">{item?.genre}</Cell>
-                      <Cell variant="secondary">
-                        <DeleteAndEdit
-                          handleEdit={handleEdit}                         
-                          id={item?._id}                         
-                          handleOpen={() => handleOpen(item?.title, item?._id)}
-                          title={songTitle}
-                        />
-                      </Cell>
-                    </Row>
-                  ))
+                  (genre === "" ? songs ?? [] : filteredSong ?? [])?.map(
+                    (item) => (
+                      <Row key={item?._id}>
+                        <Cell variant="secondary">{item?.title}</Cell>
+                        <Cell variant="secondary">{item?.artist}</Cell>
+                        <Cell variant="secondary">{item?.album}</Cell>
+                        <Cell variant="secondary">{item?.genre}</Cell>
+                        <Cell variant="secondary">
+                          <DeleteAndEdit
+                            handleEdit={handleEdit}
+                            id={item?._id}
+                            handleOpen={() =>
+                              handleOpen(item?.title, item?._id)
+                            }
+                            title={songTitle}
+                          />
+                        </Cell>
+                      </Row>
+                    )
+                  )
                 )}
               </tbody>
             </Table>
             <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
+              currentPage={currentPage ?? 0}
+              totalPages={totalPages ?? 0}
               handlePreviousPage={handlePreviousPage}
               handleNextPage={handleNextPage}
             />
@@ -164,7 +184,7 @@ console.log({genre})
       </Box>
       <UpdateSongDetailView open={open} handleClose={handleClose} />
       <Modal isOpen={openConfirm} onClose={handleCancel}>
-        <Box  variant="secondary">
+        <Box variant="secondary">
           <Typography color="blue" fontSize="20px" textAlign="center">
             Are you Sure?
           </Typography>
@@ -175,7 +195,7 @@ console.log({genre})
             <Button onClick={handleCancel} variant="secondary">
               Cancel
             </Button>
-            <Button onClick={ handleDelete} variant="delete">
+            <Button onClick={handleDelete} variant="delete">
               Delete
             </Button>
           </Box>

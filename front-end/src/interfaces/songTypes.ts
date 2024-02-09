@@ -155,4 +155,10 @@ export interface SongInGenreSuccesResponse {
     export interface SongAndAlbumSuccesResponse {
       data:SongAndAlbumPagination
       }
-  
+      export interface InputFieldProp {
+        label: string;
+        id: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        control: any;
+        placeholder: string;
+      }

@@ -1,7 +1,8 @@
-import React from 'react';
-import AddSongView from '../pages/AddSongView';
-import ViewListOfSong from '../pages/ViewListOfSongs';
-import StatView from '../pages/StatView';
+import React from "react";
+import AddSongView from "../pages/AddSongView";
+import ViewListOfSong from "../pages/ViewListOfSongs";
+import StatView from "../pages/StatView";
+import AuthView from "../pages/AuthView";
 
 export type RouteConfig = {
   path: string;
@@ -11,16 +12,20 @@ export type RouteConfig = {
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
+    path: "/",
+    element: <AuthView />,
+  },
+  {
+    path: "/add-song",
     element: <AddSongView />,
   },
   {
-    path: '/view-songs',
+    path: "/view-songs",
     element: <ViewListOfSong />,
   },
 
   {
-    path: '/view-Statistics',
+    path: "/view-Statistics",
     element: <StatView />,
   },
 ];

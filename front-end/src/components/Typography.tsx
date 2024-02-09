@@ -8,10 +8,19 @@ import {
   ColorProps,
   fontSize,
   variant,
+  layout,
+  LayoutProps,
+  textStyle,
+  TextStyleProps,
 } from "styled-system";
 
-interface StyledTextProps extends SpaceProps, TypographyProps, ColorProps {
-  variant?: "normal" | "bold" | "italic" | "heading1" | "heading2";
+interface StyledTextProps
+  extends SpaceProps,
+    TypographyProps,
+    ColorProps,
+    LayoutProps,
+    TextStyleProps {
+  variant?: "normal" | "bold" | "italic" | "heading1" | "heading2" | "heading3";
 }
 
 const Typography = styled.p<StyledTextProps>`
@@ -19,6 +28,8 @@ const Typography = styled.p<StyledTextProps>`
   ${typography}
   ${color}
   ${fontSize}
+  ${textStyle}
+  ${layout}
   ${variant({
     variants: {
       normal: {
@@ -40,7 +51,20 @@ const Typography = styled.p<StyledTextProps>`
         color: "blue",
         textAlign: "center",
       },
-      heading2: { fontWeight: 500, fontSize: "14px", color: "black",marginTop:'2px' },
+      heading2: {
+        fontWeight: 500,
+        fontSize: "14px",
+        color: "black",
+        marginTop: "2px",
+      },
+      heading3: {
+        fontStyle: "italic",
+        fontSize: "12px",
+        color: "#000000",
+        whiteSpace: "wrap",
+        cursor: "pointer",
+        textDecoration: "underline",
+      },
     },
   })}
 `;

@@ -1,20 +1,46 @@
+import styled from "@emotion/styled";
+import {
+  space,
+  color,
+  layout,
+  flexbox,
+  SpaceProps,
+  ColorProps,
+  LayoutProps,
+  FlexboxProps,
+  BorderRadiusProps,
+  borderRadius,
+  BorderProps,
+  border,
+  fontSize,
+  FontSizeProps,
+  lineHeight,
+  LineHeightProps,
+} from "styled-system";
 
-import styled from '@emotion/styled';
-import { space, color, layout, flexbox, SpaceProps, ColorProps, LayoutProps, FlexboxProps, BorderRadiusProps, borderRadius } from 'styled-system';
-
-interface InputProps extends SpaceProps, ColorProps, LayoutProps, FlexboxProps,BorderRadiusProps {
- 
-}
+interface InputProps
+  extends SpaceProps,
+    ColorProps,
+    LayoutProps,
+    FlexboxProps,
+    BorderRadiusProps,
+    BorderProps,
+    FontSizeProps,
+    LineHeightProps {}
 
 const TextField = styled.input<InputProps>`
   padding: 8px;
   margin: 4px;
-  width:100%;
+  width: 100%;
+
   ${space}
   ${color}
   ${layout}
   ${flexbox}
+  ${border}
   ${borderRadius}
+  ${fontSize}
+  ${lineHeight}
 `;
 
 export default TextField;

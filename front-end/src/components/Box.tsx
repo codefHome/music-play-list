@@ -11,13 +11,20 @@ import {
   variant,
   boxShadow,
   BoxShadowProps,
+  border,
+  BorderProps,
+  backgroundImage,
+  BackgroundImageProps,
 } from "styled-system";
 
 interface StyledDivProps
   extends SpaceProps,
     ColorProps,
     LayoutProps,
-    FlexboxProps,BoxShadowProps {
+    FlexboxProps,
+    BoxShadowProps,
+    BackgroundImageProps,
+    BorderProps {
   variant?:
     | "primary"
     | "secondary"
@@ -27,6 +34,7 @@ interface StyledDivProps
     | "summary"
     | "tableStyle"
     | "loading"
+    | "loginBox";
 }
 
 const Box = styled.div<StyledDivProps>`
@@ -34,7 +42,9 @@ const Box = styled.div<StyledDivProps>`
   ${color}
   ${layout}
   ${flexbox}
+  ${border}
   ${boxShadow}
+  ${backgroundImage}
   ${variant({
     variants: {
       primary: {
@@ -96,7 +106,7 @@ const Box = styled.div<StyledDivProps>`
           "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
         padding: "15px 15px",
         gap: "50px",
-        margingTop: "20px",
+        marginTop: "20px",
       },
 
       tableStyle: {
@@ -112,10 +122,22 @@ const Box = styled.div<StyledDivProps>`
         padding: "15px 15px",
       },
       loading: {
-        position: 'absolute',
-        top:' 50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
+        position: "absolute",
+        top: " 50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      },
+      loginBox: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "white",
+        backgroundColor: "#FFF",
+        boxShadow:
+          "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+        padding: "15px 15px",
+        height: "400px",
       },
     },
   })}

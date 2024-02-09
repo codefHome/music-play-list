@@ -6,11 +6,11 @@ const settings = {
 }
 const connection= async()=>{
  
-        // const user=process.env.USER
-        // const password=process.env.PASSWORD
-        // const db=process.env.DB
-        // const dbUrl=(`mongodb+srv://${user}:${password}@cluster0.a5dsbs2.mongodb.net/${db}?retryWrites=true&w=majority`)
-        const dbUrl=`mongodb://mongodb:27017/ExpressTest`
+        const user=process.env.USER
+        const password=process.env.PASSWORD
+        const db=process.env.DB
+        const dbUrl=(`mongodb+srv://${user}:${password}@cluster0.a5dsbs2.mongodb.net/${db}?retryWrites=true&w=majority`)
+        // const dbUrl=`mongodb://mongodb:27017/ExpressTest`
         await mongoose.connect(dbUrl,settings).then(()=>{
             console.log("Connected to the DB")
         }).catch((e)=>{
