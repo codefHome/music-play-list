@@ -9,6 +9,7 @@ import TextField from "../components/TextField";
 
 const SignUp = () => {
   const { control, errors, handleSubmit, onSubmit } = useSignUpForm();
+
   return (
     <Box
       display="flex"

@@ -20,17 +20,20 @@ interface StyledTextProps
     ColorProps,
     LayoutProps,
     TextStyleProps {
-  variant?: "normal" | "bold" | "italic" | "heading1" | "heading2" | "heading3";
+  variant?:
+    | "normal"
+    | "bold"
+    | "italic"
+    | "heading1"
+    | "heading2"
+    | "heading3"
+    | "playerInfo";
 }
 
 const Typography = styled.p<StyledTextProps>`
-  ${space}
-  ${typography}
-  ${color}
-  ${fontSize}
-  ${textStyle}
-  ${layout}
-  ${variant({
+  ${space} ${typography} ${color} ${fontSize}
+    ${textStyle} ${layout}
+    ${variant({
     variants: {
       normal: {
         fontSize: "14px",
@@ -64,9 +67,19 @@ const Typography = styled.p<StyledTextProps>`
         whiteSpace: "wrap",
         cursor: "pointer",
         textDecoration: "underline",
+        textOverflow: "ellipsis",
+      },
+      playerInfo: {
+        fontSize: "12px",
+        color: "#000000",
+        whiteSpace: "nowrap",
+        cursor: "pointer",
+        width: "150px",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
       },
     },
-  })}
+  })};
 `;
 
 export default Typography;

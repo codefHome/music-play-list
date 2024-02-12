@@ -9,6 +9,8 @@ import { watchCountSummarySaga } from "./countSummarySaga";
 import { watchsongInGenreSaga } from "./songInGenreSaga";
 import { watchSongAndAlbumeSaga } from "./SongAndAlbumOfArtistSaga";
 import { watchSongInAlbumSaga } from "./songInEachAlbumSaga";
+import watchRegisterSaga from "./registerSaga";
+import watchLoginSaga from "./loginSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -22,5 +24,7 @@ export default function* rootSaga() {
     watchsongInGenreSaga(),
     watchSongAndAlbumeSaga(),
     watchSongInAlbumSaga(),
+    watchRegisterSaga(),
+    watchLoginSaga(),
   ]);
 }

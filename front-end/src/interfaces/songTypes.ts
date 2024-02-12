@@ -3,8 +3,14 @@ export interface Song {
   artist: string;
   album: string;
   genre: string;
+  videoUrl:string;
+
 }
 
+export interface InformationCardType extends Omit<Song,'videoUrl'>{}
+export interface AddSongPayload extends Song {
+  userId:string 
+}
 export interface FetchResponse extends Song {
   _id: string;
   
@@ -52,6 +58,7 @@ export interface AddSongState {
   error: string | null;
   successData: {msg:string | null,success:boolean | null}
   isAdded: boolean | null
+  
 }
 
 export interface CardProps {
@@ -122,6 +129,7 @@ export interface AllSongWithPagination {
   artist: string;
   album: string;
   genre: string;
+  videoUrl:string;
 }
 
 export interface FetchSongwithPagination {

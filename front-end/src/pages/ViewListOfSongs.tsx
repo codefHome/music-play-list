@@ -97,7 +97,7 @@ const ViewListOfSong = () => {
   const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
     setGenre(event.target.value);
   };
-  console.log({ genre });
+
   return (
     <>
       <Box display="flex" width="100%" mb="-15px" mt="20px">

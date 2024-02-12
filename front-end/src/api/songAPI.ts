@@ -1,6 +1,7 @@
 import axios from "axios";
 import { songEndpoint } from "./songEndpoint";
 import {  FetchResponse2, Song } from "../interfaces/songTypes";
+import { LoginType, RegisterPayload } from "../interfaces/authType";
 axios.defaults.headers.common["Cache-Control"] = "no-cache";
 export const getAllSongsAPI = async (page:number,limit:number) => {
   const response = await axios.get(`${songEndpoint.fetchAllSong}?page=${page}&limit=${limit}`);
@@ -17,7 +18,7 @@ export const deleteSongAPI = async (data:{id:string,limit:number}) => {
 
 export const addSongAPI = async (data: Song) => {
   const response = await axios.post(`${songEndpoint.addSongs}`, data);
-  return response;
+  return response.data;
 };
 export const updateSongAPI = async (data: FetchResponse2) => {
   const response = await axios.put(
@@ -47,4 +48,13 @@ export const countSongAndAlbumOfArtistAPI = async (page:number,limit:number) => 
 export const countSongInEachAlbumAPI = async (page:number,limit:number) => {
   const response = await axios.get(`${songEndpoint.countSongInEachAlbum}?page=${page}&limit=${limit}`);
   return response;
+};
+export const registerAPI = async (data:RegisterPayload) => {
+  const response = await axios.post(`${songEndpoint.register}`,data)
+  return response.data;
+};
+export const LoginAPI = async (data:LoginType) => {
+  const response = await axios.post(`${songEndpoint.login}`,data);
+  const{data:result,success} = response.data
+  return {data:result,successData:success};
 };

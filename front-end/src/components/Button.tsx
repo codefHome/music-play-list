@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import {
+  BackgroundProps,
+  BorderProps,
   ButtonStyleProps,
+  background,
+  border,
   color,
   flexbox,
   fontSize,
@@ -9,7 +13,11 @@ import {
   variant,
 } from "styled-system";
 
-const Button = styled.button<ButtonStyleProps>`
+interface ButtonProps extends ButtonStyleProps, BorderProps, BackgroundProps {
+  variant?: "primary" | "secondary" | "delete" | "auth";
+}
+
+const Button = styled.button<ButtonProps>`
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
@@ -18,6 +26,8 @@ const Button = styled.button<ButtonStyleProps>`
   ${layout}
   ${flexbox}
   ${fontSize}
+  ${border}
+  ${background}
   ${variant({
     variants: {
       primary: {
@@ -70,4 +80,5 @@ const Button = styled.button<ButtonStyleProps>`
     },
   })}
 `;
+
 export default Button;

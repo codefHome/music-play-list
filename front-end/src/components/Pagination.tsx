@@ -7,21 +7,24 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   handleNextPage: () => void;
+  bg?: string;
 }
 const Pagination = ({
   currentPage,
   totalPages,
   handleNextPage,
   handlePreviousPage,
+  bg = "gray",
 }: PaginationProps) => {
   return (
     <Box
       display="flex"
       justifyContent="end"
       alignItems="center"
-      bg="gray"
+      bg={bg}
       variant="gap"
-      boxShadow='0px 2px 4px rgba(0, 0, 0, 0.2)'
+      boxShadow="0px 2px 4px rgba(0, 0, 0, 0.2)"
+      p={3}
     >
       <Button
         variant="secondary"

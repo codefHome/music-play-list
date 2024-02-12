@@ -5,7 +5,7 @@ import Box from "./Box";
 import Typography from "./Typography";
 import TextField from "./TextField";
 import { PasswordIcon } from "../assets/PasswordIcon";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import VisibleIcon from "../assets/VisibleIcon";
 import HidePasswordIcon from "../assets/HidePasswordIcon";
 import IconButton from "./IconButton";
@@ -17,7 +17,8 @@ export const PasswordField = ({
   placeholder,
 }: InputFieldProp) => {
   const [show, setShow] = useState<boolean>(false);
-  const handleShow = () => {
+  const handleShow = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setShow(!show);
   };
   return (

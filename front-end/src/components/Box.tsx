@@ -62,7 +62,6 @@ const Box = styled.div<StyledDivProps>`
         flexDirection: "column",
         justifyContent: "center",
         color: "white",
-        // width: "200vh",
         backgroundColor: "#FFF",
         borderRadius: "15px",
         boxShadow:

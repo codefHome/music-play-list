@@ -1,15 +1,16 @@
-import { useState } from "react";
 import Box from "../components/Box";
 import Button from "../components/Button";
 import Typography from "../components/Typography";
-
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { setToggleAuth } from "../store/slices/registerSlice";
 
 const AuthView = () => {
-  const [toggleAuth, setToggleAuth] = useState<boolean>(false);
+  const { toggleAuth } = useAppSelector((state) => state.register);
+  const dispatch = useAppDispatch();
   const handleToggle = () => {
-    setToggleAuth(!toggleAuth);
+    dispatch(setToggleAuth());
   };
   return (
     <Box
@@ -17,7 +18,6 @@ const AuthView = () => {
       justifyContent="center"
       alignContent="center"
       height="100%"
-      backgroundColor=""
     >
       <Box variant="primary">
         <Box
@@ -46,7 +46,7 @@ const AuthView = () => {
             width="500px"
             mt={3}
           >
-            <Button onClick={handleToggle} variant="auth">
+            <Button type="button" onClick={handleToggle} variant="auth">
               {toggleAuth ? "Sign In" : "Sign up"}
             </Button>
           </Box>

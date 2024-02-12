@@ -1,23 +1,21 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
 
 import { addSongAPI } from '../../api/songAPI';
-import { addSongStart, addSongSuccess, addsongFailure } from '../slices/addSongSlice';
+import { addSongStart, addSongSuccess, addSongFailure } from '../slices/addSongSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Song, SuccessResopnse } from '../../interfaces/songTypes';
+import { Song } from '../../interfaces/songTypes';
+import { SuccessType } from '../../interfaces/authType';
 
 function* insertSongSaga(action: PayloadAction<Song>) {
   try {
-    const newItems:SuccessResopnse = yield call(addSongAPI, action.payload);
-    yield put(addSongSuccess(newItems.data));
-    // yield put(addsongFailure(newItems.data.msg));
-   
-   
+    const newItems:SuccessType = yield call(addSongAPI, action.payload);
+    yield put(addSongSuccess(newItems));
   } catch (error) {
    
     if (error instanceof Error) {
-        yield put(addsongFailure(error.message));
+        yield put(addSongFailure(error.message));
       } else {
-        yield put(addsongFailure("An unknown error occurred" ));
+        yield put(addSongFailure("An unknown error occurred" ));
         console.error();
       }
   }

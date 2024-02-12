@@ -11,4 +11,6 @@ export const songEndpoint = {
   countSongInEachGenre: `${environment.urls.web}/songInEachGenre`,
   countSongAndAlbumOfArtist: `${environment.urls.web}/countSongAndAlbumForArtist`,
   countSongInEachAlbum: `${environment.urls.web}/songInEachAlbum`,
+  register: `${environment.urls.web}/register`,
+  login: `${environment.urls.web}/login`,
 };

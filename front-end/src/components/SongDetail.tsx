@@ -37,7 +37,15 @@ const SongDetail = ({
       height="90%"
     >
       <Box variant="secondary" height="max-content">
-        <Typography color='blue' mt='-5px' mb='5px' fontSize='20px' fontWeight='bold'>{title}</Typography>
+        <Typography
+          color="blue"
+          mt="-5px"
+          mb="5px"
+          fontSize="20px"
+          fontWeight="bold"
+        >
+          {title}
+        </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box display="flex" flexDirection="column">
             <Box display="flex" flexDirection="column">
@@ -58,7 +66,7 @@ const SongDetail = ({
                 </Typography>
               )}
             </Box>
-            <Box display="flex" flexDirection="column" >
+            <Box display="flex" flexDirection="column">
               <InputField
                 id="artist"
                 placeholder="please enter artist full Name"
@@ -67,7 +75,7 @@ const SongDetail = ({
               />
               {!!errors.artist && (
                 <Typography
-                   marginTop="-5px"
+                  marginTop="-5px"
                   color="red"
                   textAlign="center"
                   fontSize="12px"
@@ -85,7 +93,7 @@ const SongDetail = ({
               />
               {!!errors.album && (
                 <Typography
-                   marginTop="-5px"
+                  marginTop="-5px"
                   color="red"
                   textAlign="center"
                   fontSize="12px"
@@ -103,12 +111,30 @@ const SongDetail = ({
               />
               {!!errors.genre && (
                 <Typography
-                   marginTop="-5px"
+                  marginTop="-5px"
                   color="red"
                   textAlign="center"
                   fontSize="12px"
                 >
                   {errors?.genre?.message}
+                </Typography>
+              )}
+            </Box>
+            <Box display="flex" flexDirection="column">
+              <InputField
+                id="videoUrl"
+                placeholder="please enter video Url"
+                control={control}
+                label="Video URL"
+              />
+              {!!errors.videoUrl && (
+                <Typography
+                  marginTop="-5px"
+                  color="red"
+                  textAlign="center"
+                  fontSize="12px"
+                >
+                  {errors?.videoUrl?.message}
                 </Typography>
               )}
             </Box>

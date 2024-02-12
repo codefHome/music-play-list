@@ -1,4 +1,4 @@
-
+import  registerReducer  from './slices/registerSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import fetchReducer from './slices/songSlices'; // Adjust the import path
@@ -21,13 +21,18 @@ import songAndAlbumReducer from './slices/countSongAndAlbumOfArtistSlice'
 import songInAlbumReducer from './slices/songInEachAlbumSlice'
 import { watchSongAndAlbumeSaga } from './sagas/SongAndAlbumOfArtistSaga';
 import { watchSongInAlbumSaga } from './sagas/songInEachAlbumSaga';
+import watchRegisterSaga from './sagas/registerSaga';
+import watchLoginSaga from './sagas/loginSaga';
+import loginReducer from './slices/loginSlice';
+
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
     songs: fetchReducer,
     delete:deleteReducer,
-    addsong:addSongReducer,
+    addSong:addSongReducer,
     updateSong:updateSongReducer,
     singleSong:singSongReducer,
     filterSong:filterReducer,
@@ -35,6 +40,8 @@ const store = configureStore({
     songInGenre:songInGenreReducer,
     sondAndAlbum:songAndAlbumReducer,
     songInAlbum:songInAlbumReducer,
+    register:registerReducer,
+    login:loginReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -54,6 +61,8 @@ sagaMiddleware.run(watchCountSummarySaga);
 sagaMiddleware.run(watchsongInGenreSaga);
 sagaMiddleware.run(watchSongAndAlbumeSaga);
 sagaMiddleware.run(watchSongInAlbumSaga);
+sagaMiddleware.run(watchRegisterSaga);
+sagaMiddleware.run(watchLoginSaga);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
