@@ -8,11 +8,13 @@ const connection =require('./src/config/connection.js')
 
 dotenv.config()
 const port1 = process.env.PORT1 || 5173;
-// const port2 = process.env.PORT2 || 5174;
+
 const corsOptions = {
   origin: [
-    `http://localhost:${parseInt(port1)}`,
-    // `http://localhost:${parseInt(port2)}`,
+    // `http://localhost:${parseInt(port1)}`,
+    `https://my-back-end-app.onrender.com`,
+
+    
   ],
 };
 app.use(cors(corsOptions))
