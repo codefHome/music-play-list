@@ -12,7 +12,7 @@ const port1 = process.env.PORT1 || 5173;
 const corsOptions = {
   origin: [
     // `http://localhost:${parseInt(port1)}`,
-    `https://my-back-end-app.onrender.com`,
+    `https://develop--my-react-pet-app.netlify.app/`,
 
     
   ],
