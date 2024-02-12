@@ -17,7 +17,12 @@ const SongModel = new Schema({
   genre: {
     type:String
   },
-  isDeleted:Boolean
+  isDeleted:{
+    type:Boolean,
+    default:false
+  },
+  userId:String,
+  cd:String,
 },
 {
   timestamps: true,

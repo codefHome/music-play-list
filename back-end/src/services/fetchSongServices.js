@@ -29,9 +29,15 @@ exports.getAllSongService = async (page,limit) => {
     }
   };
 
-  exports.filterByGenreService = async (genre) => {
+  exports.filterByGenreService = async (searchText) => {
     try{
-        const query = { genre: new RegExp(genre, "i")  };
+      const query = {
+        $or: [
+          { genre: new RegExp(searchText, "i") },
+          { title: new RegExp(searchText, "i") }
+        ]
+      };
+      
       const result=  await Song.find(query)
          return result;
     }catch(err){

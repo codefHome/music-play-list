@@ -1,14 +1,15 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
-
+const jwt =require('jsonwebtoken')
 exports.registerUserService = async (data) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(data.password, salt);
     const payload={...data,password:hash}
-    const result = await User.insertMany({ ...payload });
-    console.log(hash)
-    return result;
+   await User.insertMany({ ...payload });
+    return {msg:'Registered Successfully',success:true}
+  
+    
   } catch (err) {
     return {
       success: false,
@@ -23,10 +24,28 @@ exports.signInService = async (email, password) => {
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
-      return "Invalid credentials";
+      return {success:{msg:'Invalid credentials',success:false} }
     }
-    return user;
+    const tokenPayload = {
+      userId: user.userId,
+      email: user.email,
+      fullName: user.fullName,
+    };
+
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+      expiresIn: '5000h', 
+    });
+    return {data:{
+      userName:user.fullName,
+      email:user.email,
+      userId:user.userId,
+      _id:user._id,
+      token:token
+    },
+    success:{msg:'SignIn Successfully',success:true}
+ };
   } catch (err) {
     return err;
   }
 };
+
