@@ -1,24 +1,28 @@
-version: '3'
+version: "3"
 services:
   express-app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
-    depends_on:
-      - mongodb
     environment:
       - MONGO_URL=mongodb://mongodb:27017/ExpressTest
+    depends_on:
+      - mongodb
     links:
       - mongodb
 
   mongodb:
     image: mongo:latest
+    environment:
+      - MONGO_INITDB_DATABASE=ExpressTest
+      - MONGO_INITDB_ROOT_USERNAME=bedada6
+      - MONGO_INITDB_ROOT_PASSWORD=1BedadaHome
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    environment:
-      - MONGO_INITDB_DATABASE=ExpressTest
 
 volumes:
   mongo-data:
