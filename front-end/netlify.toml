@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"  
+
+[build.environment]
+  NETLIFY_EXPERIMENTAL_BUILD_CI=1
+  NETLIFY_EXPERIMENTAL_TYPESCRIPT_BUILD=true
+  NETLIFY_EXPERIMENTAL_TYPESCRIPT_FLAGS="--noUnusedLocals --noUnusedParameters"
