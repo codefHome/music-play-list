@@ -14,6 +14,9 @@ exports.registerUser = async (req, res) => {
 
 exports.signInController = async (req, res) => {
   try {
+    if (req.userNotFound) {
+      return res.status(200).json({successData:{ msg: 'User not found', success: false }});
+    }
     const { email, password } = req.body;
     const result = await signInService(email, password);
     res.status(200).json(result);

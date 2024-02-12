@@ -42,7 +42,7 @@ exports.signInService = async (email, password) => {
       _id:user._id,
       token:token
     },
-    success:{msg:'SignIn Successfully',success:true}
+    successData:{msg:'SignIn Successfully',success:true}
  };
   } catch (err) {
     return err;

@@ -7,7 +7,7 @@ exports.signInMiddleware = async(req, res, next) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      throw new Error('User does not exist');
+      req.userNotFound = true;
     }
     next();
   } catch (error) {
