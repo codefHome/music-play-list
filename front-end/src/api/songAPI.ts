@@ -55,6 +55,6 @@ export const registerAPI = async (data:RegisterPayload) => {
 };
 export const LoginAPI = async (data:LoginType) => {
   const response = await axios.post(`${songEndpoint.login}`,data);
-  const{data:result,success} = response.data
-  return {data:result,successData:success};
+  const{data:result,successData} = response.data
+  return {data:result,successData:successData};
 };
