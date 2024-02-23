@@ -17,12 +17,13 @@ import Pagination from "../components/Pagination";
 import Modal from "../components/Modal";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
+import SongCard from "../components/SongCard";
 const ViewListOfSong = () => {
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const { songs, currentPage, totalPages, loading } = useAppSelector(
     (state) => state.songs
   );
-
+  console.log({ songs });
   const { data: filteredSong } = useAppSelector((state) => state.filterSong);
   const { open } = useAppSelector((state) => state.updateSong);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -99,34 +100,68 @@ const ViewListOfSong = () => {
   };
 
   return (
-    <>
-      <Box display="flex" width="100%" mb="-15px" mt="20px">
-        <Box width="100%">
-          <Box variant="primary">
-            <Typography variant="heading1">Song List</Typography>
-          </Box>
+    <Box className="flex flex-col h-auto lg:h-full bg-[#e0f3dd]">
+      <Box className="flex flex-col w-full p-3">
+        <Box className="flex flex-col w-full">
+          <Typography variant="heading1" className="my-3">
+            Song List
+          </Typography>
 
-          <Box variant="secondary" display="flex" flexDirection="column">
-            <TextField
-              onChange={handleFilter}
-              borderRadius="10px"
-              mb={3}
-              placeholder="filter using genre"
-              width="50%"
-            />
-            <Table>
-              <thead>
-                <Row>
-                  {tableHeaders.map((item) => (
-                    <Cell variant="primary" key={item?.id}>
-                      {item.title}
-                    </Cell>
-                  ))}
-                </Row>
-              </thead>
-              <tbody style={{ position: "relative", height: "200px" }}>
-                {songs?.length === 0 ||
-                  (filteredSong?.length === 0 && genre !== "" && (
+          <TextField
+            onChange={handleFilter}
+            borderRadius="10px"
+            mb={3}
+            placeholder="filter using genre"
+            className="w-full md:w-2/5 "
+            border="1px solid black"
+          />
+          <Box className="flex md:hidden flex-col w-full gap-4">
+            {(genre === "" ? songs ?? [] : filteredSong ?? [])?.map((song) => (
+              <SongCard
+                key={song?._id}
+                title={song?.title}
+                artist={song?.artist}
+                album={song?.album}
+                genre={song?.genre}
+                icon={
+                  <DeleteAndEdit
+                    handleEdit={handleEdit}
+                    id={song?._id ?? ""}
+                    handleOpen={() => handleOpen(song?.title, song?._id ?? "")}
+                    title={songTitle}
+                  />
+                }
+              />
+            ))}
+          </Box>
+          <Box className="hidden md:flex flex-col w-full">
+            <Box variant="secondary">
+              <Table className="h-auto">
+                <thead>
+                  <Row>
+                    {tableHeaders.map((item) => (
+                      <Cell variant="primary" key={item?.id}>
+                        {item.title}
+                      </Cell>
+                    ))}
+                  </Row>
+                </thead>
+                <tbody style={{ position: "relative" }}>
+                  {songs?.length === 0 ||
+                    (filteredSong?.length === 0 && genre !== "" && (
+                      <Box
+                        color="black"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        variant="loading"
+                      >
+                        <Typography variant="heading2">
+                          No Record Found
+                        </Typography>
+                      </Box>
+                    ))}
+                  {loading ? (
                     <Box
                       color="black"
                       display="flex"
@@ -134,52 +169,40 @@ const ViewListOfSong = () => {
                       alignItems="center"
                       variant="loading"
                     >
-                      <Typography variant="heading2">
-                        No Record Found
-                      </Typography>
+                      <Typography variant="heading2">Loading ...</Typography>
                     </Box>
-                  ))}
-                {loading ? (
-                  <Box
-                    color="black"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    variant="loading"
-                  >
-                    <Typography variant="heading2">Loading ...</Typography>
-                  </Box>
-                ) : (
-                  (genre === "" ? songs ?? [] : filteredSong ?? [])?.map(
-                    (item) => (
-                      <Row key={item?._id}>
-                        <Cell variant="secondary">{item?.title}</Cell>
-                        <Cell variant="secondary">{item?.artist}</Cell>
-                        <Cell variant="secondary">{item?.album}</Cell>
-                        <Cell variant="secondary">{item?.genre}</Cell>
-                        <Cell variant="secondary">
-                          <DeleteAndEdit
-                            handleEdit={handleEdit}
-                            id={item?._id}
-                            handleOpen={() =>
-                              handleOpen(item?.title, item?._id)
-                            }
-                            title={songTitle}
-                          />
-                        </Cell>
-                      </Row>
+                  ) : (
+                    (genre === "" ? songs ?? [] : filteredSong ?? [])?.map(
+                      (item) => (
+                        <Row key={item?._id}>
+                          <Cell variant="secondary">{item?.title}</Cell>
+                          <Cell variant="secondary">{item?.artist}</Cell>
+                          <Cell variant="secondary">{item?.album}</Cell>
+                          <Cell variant="secondary">{item?.genre}</Cell>
+                          <Cell variant="secondary">
+                            <DeleteAndEdit
+                              handleEdit={handleEdit}
+                              id={item?._id ?? ""}
+                              handleOpen={() =>
+                                handleOpen(item?.title, item?._id ?? "")
+                              }
+                              title={songTitle}
+                            />
+                          </Cell>
+                        </Row>
+                      )
                     )
-                  )
-                )}
-              </tbody>
-            </Table>
-            <Pagination
-              currentPage={currentPage ?? 0}
-              totalPages={totalPages ?? 0}
-              handlePreviousPage={handlePreviousPage}
-              handleNextPage={handleNextPage}
-            />
+                  )}
+                </tbody>
+              </Table>
+            </Box>
           </Box>
+          <Pagination
+            currentPage={currentPage ?? 0}
+            totalPages={totalPages ?? 0}
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+          />
         </Box>
       </Box>
       <UpdateSongDetailView open={open} handleClose={handleClose} />
@@ -201,7 +224,7 @@ const ViewListOfSong = () => {
           </Box>
         </Box>
       </Modal>
-    </>
+    </Box>
   );
 };
 export default ViewListOfSong;

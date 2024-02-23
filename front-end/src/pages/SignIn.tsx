@@ -1,4 +1,3 @@
-import React from "react";
 import Box from "../components/Box";
 import Button from "../components/Button";
 import EmailInput from "../components/EmailInput";
@@ -11,13 +10,18 @@ const SignIn = () => {
   return (
     <Box variant="primary">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box variant="loginBox" backgroundImage="url(/bg-image.png)">
+        <Box
+          variant="loginBox"
+          backgroundImage="url(/bg-image.png)"
+          className="flex flex-col gap-4 w-fit"
+        >
           <Typography variant="heading1">Login to Your Account</Typography>
 
           <Box
             display="flex"
             flexDirection="column"
             backgroundColor="transparent"
+            className="w-fit"
           >
             <EmailInput
               id="email"
@@ -31,7 +35,7 @@ const SignIn = () => {
                 color="red"
                 textAlign="center"
                 fontSize="12px"
-                width="400px"
+                className="w-fit"
               >
                 {errors?.email?.message}
               </Typography>
@@ -50,7 +54,7 @@ const SignIn = () => {
                 color="red"
                 textAlign="center"
                 fontSize="12px"
-                width="400px"
+                className="w-fit"
               >
                 {errors?.password?.message}
               </Typography>
@@ -60,7 +64,7 @@ const SignIn = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            width="500px"
+            className="w-fit"
           >
             <Typography variant="heading3">Forgot Password</Typography>
           </Box>
@@ -68,7 +72,7 @@ const SignIn = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            width="500px"
+            className="w-fit"
           >
             <Button type="submit" variant="auth">
               Sign In

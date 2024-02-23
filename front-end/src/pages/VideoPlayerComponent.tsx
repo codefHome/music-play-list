@@ -11,16 +11,16 @@ interface MusicPlayerProps {
   autoPlay?: number;
 }
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({
+const MusicPlayer = ({
   url,
   handleOnStateChange,
   width,
   height,
   autoPlay = 0,
-}) => {
+}: MusicPlayerProps) => {
   const opts = {
     height,
-    width,
+    width: "100%",
     playerVars: {
       autoplay: autoPlay,
     },

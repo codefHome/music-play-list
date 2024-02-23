@@ -22,7 +22,7 @@ export const PasswordField = ({
     setShow(!show);
   };
   return (
-    <Box display="flex" justifyContent="start" alignItems="center">
+    <Box className="flex flex-col lg:flex-row gap-2 justify-start items-center">
       <Typography
         textAlign="right"
         color="black"
@@ -38,7 +38,7 @@ export const PasswordField = ({
         borderRadius="5px"
         justifyContent="center"
         alignItems="center"
-        width="350px"
+        className="w-[250px] lg:w-[350px]"
         height="45px"
         paddingLeft="3px"
       >
@@ -65,14 +65,14 @@ export const PasswordField = ({
             icon={<VisibleIcon />}
             onClick={handleShow}
             color="blue"
-            size={24}
+            size={20}
           />
         ) : (
           <IconButton
             icon={<HidePasswordIcon />}
             onClick={handleShow}
             color="blue"
-            size={24}
+            size={20}
           />
         )}
       </Box>

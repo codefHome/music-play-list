@@ -19,7 +19,6 @@ interface StyledTableProps
 
 const Table = styled.table<StyledTableProps>`
   width: 100%;
- 
   border-collapse: collapse;
   ${space}
   ${color}
@@ -34,19 +33,16 @@ interface StyledRowProps
     FlexboxProps {}
 
 const Row = styled.tr<StyledRowProps>`
-&:nth-child(even) {
-  background-color: #d2f2f2;
-}
-&:nth-child(odd) {
-  background-color: #g2f2f2;
-}
-&:hover {
-  background-color: #f0e0e0; 
-}
-  ${space}
-  ${color}
-  ${layout}
-  ${flexbox}
+  &:nth-child(even) {
+    background-color: #d2f2f2;
+  }
+  &:nth-child(odd) {
+    background-color: #g2f2f2;
+  }
+  &:hover {
+    background-color: #f0e0e0;
+  }
+  width: 100% ${space} ${color} ${layout} ${flexbox};
 `;
 
 interface StyledCellProps
@@ -58,28 +54,24 @@ interface StyledCellProps
 }
 
 const Cell = styled.td<StyledCellProps>`
-  // border: 1px solid #ddd;
-  ${space}
-  ${color}
-  ${layout}
-  ${flexbox}
-  ${variant({
-    variants: {
-      primary: {
-        fontSize: "20px",
-        fontWeight: "bold",
-        color: "blue",
-        textAlign: "center",
-        borderBottom:'1px solid gray'
+  width: 100% ${space} ${color} ${layout} ${flexbox}
+    ${variant({
+      variants: {
+        primary: {
+          fontSize: "20px",
+          fontWeight: "bold",
+          color: "blue",
+          textAlign: "center",
+          borderBottom: "1px solid gray",
+        },
+        secondary: {
+          fontSize: "14px",
+          fontWeight: "normal",
+          color: "black",
+          textAlign: "center",
+        },
       },
-      secondary: {
-        fontSize: "14px",
-        fontWeight: "normal",
-        color: "black",
-        textAlign: "center",
-      },
-    },
-  })}
+    })};
 `;
 
 export { Table, Row, Cell };

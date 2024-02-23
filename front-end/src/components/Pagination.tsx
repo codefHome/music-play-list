@@ -25,22 +25,15 @@ const Pagination = ({
       variant="gap"
       boxShadow="0px 2px 4px rgba(0, 0, 0, 0.2)"
       p={3}
+      className="rounded-b-2xl"
     >
-      <Button
-        variant="secondary"
-        onClick={handlePreviousPage}
-        disabled={currentPage === 1}
-      >
+      <Button onClick={handlePreviousPage} disabled={currentPage === 1}>
         Prev
       </Button>
       <Typography variant="normal">
         Current:&nbsp; {currentPage} / Total:&nbsp; {totalPages}
       </Typography>
-      <Button
-        variant="secondary"
-        onClick={handleNextPage}
-        disabled={currentPage === totalPages}
-      >
+      <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
         Next
       </Button>
     </Box>

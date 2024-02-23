@@ -30,13 +30,13 @@ const SongInEachAlbum = () => {
     }
   };
   return (
-    <Box width="fit-content">
-      <Box variant="tableStyle">
+    <Box className="flex flex-col p-4 h-auto w-full">
+      <Box>
         <Typography variant="heading1">
           Total Song in Each Album Summary
         </Typography>
         <Table>
-          <thead >
+          <thead>
             <Row>
               {tableHeaders.map((item) => (
                 <Cell variant="primary" key={item?.id}>
@@ -58,11 +58,11 @@ const SongInEachAlbum = () => {
               </Box>
             ) : (
               data?.map((item, index) => (
-                  <Row key={index}>
-                    <Cell variant="secondary">{item?.album}</Cell>
-                    <Cell variant="secondary">{item?.titles}</Cell>
-                  </Row>
-                ))
+                <Row key={index}>
+                  <Cell variant="secondary">{item?.album}</Cell>
+                  <Cell variant="secondary">{item?.titles}</Cell>
+                </Row>
+              ))
             )}
           </tbody>
         </Table>

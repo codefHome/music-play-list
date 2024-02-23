@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
+
 export interface Song {
   title: string;
   artist: string;
   album: string;
   genre: string;
-  videoUrl:string;
+  videoUrl?:string | undefined
 
 }
 
@@ -12,7 +14,7 @@ export interface AddSongPayload extends Song {
   userId:string 
 }
 export interface FetchResponse extends Song {
-  _id: string;
+  _id?: string | undefined;
   
 }
 export interface FetchResponse2  {
@@ -61,8 +63,8 @@ export interface AddSongState {
   
 }
 
-export interface CardProps {
-  songDetail: FetchResponse;
+export interface CardProps extends FetchResponse {
+  icon:ReactNode
 }
 export interface SongCountType {
   album: string;
@@ -169,4 +171,19 @@ export interface SongInGenreSuccesResponse {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         control: any;
         placeholder: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        errors:any;
+        errorMessage:string;
+      }
+
+      export interface SideMenuProps{
+        showMenu:boolean;
+        handleClose: () => void;
+      }
+
+      export interface VisibleType{
+        count:boolean;
+        song:boolean;
+        album:boolean;
+        genre:boolean;
       }

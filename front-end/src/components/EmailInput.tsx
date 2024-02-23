@@ -12,7 +12,7 @@ export const EmailInput = ({
   placeholder,
 }: InputFieldProp) => {
   return (
-    <Box display="flex" justifyContent="start" alignItems="center">
+    <Box className="flex flex-col lg:flex-row gap-2 justify-start items-center">
       <Typography
         color="black"
         fontSize="18px"
@@ -28,7 +28,7 @@ export const EmailInput = ({
         borderRadius="5px"
         justifyContent="center"
         alignItems="center"
-        width="350px"
+        className="w-[250px] lg:w-[350px]"
         height="45px"
       >
         <EmailIcon />
