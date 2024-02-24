@@ -7,15 +7,11 @@ const router=require('./routes/index.js')
 const connection =require('./src/config/connection.js')
 
 dotenv.config()
-const port1 = process.env.PORT1 || 5173;
+
 
 const corsOptions = {
-  origin: [
-    // `http://localhost:${parseInt(port1)}`,
+  origin:
     `https://my-music-playlist.netlify.app/`,
-
-    
-  ],
 };
 app.use(cors(corsOptions))
 app.use(express.json());
