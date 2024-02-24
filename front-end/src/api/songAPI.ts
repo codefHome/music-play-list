@@ -3,12 +3,12 @@ import { songEndpoint } from "./songEndpoint";
 import {  FetchResponse2, Song } from "../interfaces/songTypes";
 import { LoginType, RegisterPayload } from "../interfaces/authType";
 axios.defaults.headers.common["Cache-Control"] = "no-cache";
-export const getAllSongsAPI = async (page:number,limit:number) => {
-  const response = await axios.get(`${songEndpoint.fetchAllSong}?page=${page}&limit=${limit}`);
+export const getAllSongsAPI = async (page:number,limit:number,userId:string) => {
+  const response = await axios.get(`${songEndpoint.fetchAllSong}/${userId}?page=${page}&limit=${limit}`);
   return response;
 };
-export const filterByGenreAPI = async (genre: string) => {
-  const response = await axios.get(`${songEndpoint.filterByGenre}/${genre}`);
+export const filterByGenreAPI = async (genre: string,userId:string) => {
+  const response = await axios.get(`${songEndpoint.filterByGenre}/${genre}/${userId}`);
   return response;
 };
 export const deleteSongAPI = async (data:{id:string,limit:number}) => {
@@ -33,20 +33,20 @@ export const getSongByIdAPI = async (_id: string) => {
   return response;
 };
 
-export const countCollectionAPI = async () => {
-  const response = await axios.get(`${songEndpoint.countCollection}`);
+export const countCollectionAPI = async (userId:string) => {
+  const response = await axios.get(`${songEndpoint.countCollection}/${userId}`);
   return response;
 };
-export const countSongInEachGenreAPI = async (page:number,limit:number) => {
-  const response = await axios.get(`${songEndpoint.countSongInEachGenre}?page=${page}&limit=${limit}`);
+export const countSongInEachGenreAPI = async (page:number,limit:number,userId:string) => {
+  const response = await axios.get(`${songEndpoint.countSongInEachGenre}/${userId}?page=${page}&limit=${limit}`);
   return response;
 };
-export const countSongAndAlbumOfArtistAPI = async (page:number,limit:number) => {
-  const response = await axios.get(`${songEndpoint.countSongAndAlbumOfArtist}?page=${page}&limit=${limit}`);
+export const countSongAndAlbumOfArtistAPI = async (page:number,limit:number,userId:string) => {
+  const response = await axios.get(`${songEndpoint.countSongAndAlbumOfArtist}/${userId}?page=${page}&limit=${limit}`);
   return response;
 };
-export const countSongInEachAlbumAPI = async (page:number,limit:number) => {
-  const response = await axios.get(`${songEndpoint.countSongInEachAlbum}?page=${page}&limit=${limit}`);
+export const countSongInEachAlbumAPI = async (page:number,limit:number,userId:string) => {
+  const response = await axios.get(`${songEndpoint.countSongInEachAlbum}/${userId}?page=${page}&limit=${limit}`);
   return response;
 };
 export const registerAPI = async (data:RegisterPayload) => {

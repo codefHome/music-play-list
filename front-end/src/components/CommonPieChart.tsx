@@ -49,7 +49,7 @@ const CustomLegend = ({ payload }: CustomLegendProps) => {
 
 const COLORS = ["#ADD8E6", "#00FF00", "#FFFF00", "#FFA500"];
 
-const CommonPieChart = ({ chartData }: CustomPieChartProps) => {
+const CommonPieChart = ({ chartData = [] }: CustomPieChartProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {  PaginationType, SongInGenre, SongInGenrePagination, SongInGenreState } from "../../interfaces/songTypes";
+import {  FetchAllSongWithPagination, PaginationType, SongInGenre, SongInGenrePagination, SongInGenreState } from "../../interfaces/songTypes";
 
 const initialState: SongInGenreState = {
   loading: false,
@@ -14,7 +14,7 @@ const songInGenreSlice = createSlice({
   name: "songInGenre",
   initialState,
   reducers: {
-    songInGenreStart(state, action: PayloadAction<PaginationType>) {
+    songInGenreStart(state, action: PayloadAction<FetchAllSongWithPagination>) {
       state.loading = true;
       state.error = null;
     },

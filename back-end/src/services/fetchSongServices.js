@@ -1,12 +1,12 @@
 const Song = require("../models/songModel");
 
-exports.getAllSongService = async (page,limit) => {
+exports.getAllSongService = async (page,limit,userId) => {
     
     try {
       const totalSongs = await Song.countDocuments();
       const totalPages = Math.ceil(totalSongs / limit);
   
-      const data = await Song.find()
+      const data = await Song.find({userId})
         .skip((page - 1) * limit)
         .limit(limit)
      return({
@@ -29,7 +29,7 @@ exports.getAllSongService = async (page,limit) => {
     }
   };
 
-  exports.filterByGenreService = async (searchText) => {
+  exports.filterByGenreService = async (searchText,userId) => {
     try{
       const query = {
         $or: [
@@ -38,7 +38,7 @@ exports.getAllSongService = async (page,limit) => {
         ]
       };
       
-      const result=  await Song.find(query)
+      const result=  await Song.find(query,{userId})
          return result;
     }catch(err){
        return err;
@@ -47,9 +47,14 @@ exports.getAllSongService = async (page,limit) => {
   };
 
 
-  exports.countCollectionService = async () => {
+  exports.countCollectionService = async (userId) => {
     try {
       const countPipeline = [
+        {
+          $match: {
+              userId: userId 
+          }
+      },
         {
           $group: {
             _id: null,
@@ -84,9 +89,14 @@ exports.getAllSongService = async (page,limit) => {
     }
   };
 
-  exports.countSongInEachGenreService = async (page,limit) => {
+  exports.countSongInEachGenreService = async (page,limit,userId) => {
     try {
       const genreCountPipeline = [
+        {
+          $match: {
+              userId: userId 
+          }
+      },
         {
           $group: {
             _id: "$genre",
@@ -113,9 +123,14 @@ exports.getAllSongService = async (page,limit) => {
     }
   };
 
-  exports.countSongAndAlbumOfArtistService = async (page,limit) => {
+  exports.countSongAndAlbumOfArtistService = async (page,limit,userId) => {
     try {
       const songAndAlbumPipeline = [
+        {
+          $match: {
+              userId: userId 
+          }
+      },
         {
           $group: {
             _id: "$artist",
@@ -152,9 +167,14 @@ exports.getAllSongService = async (page,limit) => {
     }
   };
 
-  exports.countSongInEachAlbumService = async (page, limit) => {
+  exports.countSongInEachAlbumService = async (page, limit,userId) => {
     try {
       const songCountPipeline = [
+        {
+          $match: {
+              userId: userId 
+          }
+      },
         {
           $group: {
             _id: "$album",

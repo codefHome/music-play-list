@@ -11,10 +11,11 @@ const {
 } = require("../services/fetchSongServices");
 exports.getAllSongs = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 7;
+  const limit = parseInt(req.query.limit) || 10;
+  const {userId}=req.params
   try {
-    const data = await getAllSongService(page, limit);
-    res.status(200).json(data);
+    const data = await getAllSongService(page, limit,userId);
+    res.status(200).json(data ?? []);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -24,15 +25,15 @@ exports.getSongById = async (req, res) => {
   const { _id } = req.params;
   try {
     const result = await getSongByIdService(_id);
-    res.status(200).json(result);
+    res.status(200).json(result ?? []);
   } catch (err) {
     res.status(500).json(err);
   }
 };
 
 exports.filterByGenre = async (req, res) => {
-  const { genre } = req.params;
-  await filterByGenreService(genre)
+  const { genre,userId } = req.params;
+  await filterByGenreService(genre,userId)
     .then((result) => {
       res.status(200).json(result);
     })
@@ -42,9 +43,15 @@ exports.filterByGenre = async (req, res) => {
 };
 
 exports.countCollection = async (req, res) => {
+  const {userId} =req.params
   try {
-    const result = await countCollectionService();
-    res.status(200).json(result);
+    const result = await countCollectionService(userId);
+    if(result.length){
+      res.status(200).json(result );
+    }else{
+      res.status(200).json([])
+    }
+    
   } catch (err) {
     res.status(500).json(err);
   }
@@ -52,9 +59,10 @@ exports.countCollection = async (req, res) => {
 exports.countSongInEachGenre = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 8;
+  const{userId}=req.params
   try {
-    const result = await countSongInEachGenreService(page,limit)
-    res.status(200).json(result)
+    const result = await countSongInEachGenreService(page,limit,userId)
+    res.status(200).json(result ?? [])
   } catch (err) {
     res.status(500).json(err);
   }
@@ -63,8 +71,9 @@ exports.countSongInEachGenre = async (req, res) => {
 exports.countSongAndAlbumOfArtist = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 7;
+  const{userId}=req.params
   try {
-    const result = await countSongAndAlbumOfArtistService(page,limit)
+    const result = await countSongAndAlbumOfArtistService(page,limit,userId)
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ err });
@@ -74,9 +83,10 @@ exports.countSongAndAlbumOfArtist = async (req, res) => {
 exports.countSongInEachAlbum = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 7;
+  const{userId} = req.params
   try {
    
-    const result = await countSongInEachAlbumService(page,limit)
+    const result = await countSongInEachAlbumService(page,limit,userId)
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ err });

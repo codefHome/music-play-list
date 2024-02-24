@@ -54,7 +54,7 @@ interface StyledCellProps
 }
 
 const Cell = styled.td<StyledCellProps>`
-  width: 25%;
+  width: 20%;
   word-break: break-all;
   white-space: wrap;
   color: black;

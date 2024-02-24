@@ -14,6 +14,9 @@ import IconButton from "../components/IconButton";
 import { SearchIcon } from "../assets/SearchIcon";
 import InformationCard from "../components/InformationCard";
 import Pagination from "../components/Pagination";
+import { getUserId } from "../utils/localStorage";
+import { Link } from "react-router-dom";
+import Button from "../components/Button";
 
 const HomeView = () => {
   const [genre, setGenre] = useState<string>("");
@@ -30,7 +33,7 @@ const HomeView = () => {
   const [currentUrl, setCurrentUrl] = useState<string>(
     getVideoIdFromUrl(songs[0]?.videoUrl) ?? ""
   );
-
+  const userId = getUserId() ?? "";
   const handleCurrentUrl = (data: Song) => {
     localStorage.setItem("isPlaying", JSON.stringify(true));
     setMusicPlaying(JSON.parse(localStorage.getItem("isPlaying")!));
@@ -56,9 +59,11 @@ const HomeView = () => {
     return null;
   }
   useEffect(() => {
-    dispatch(fetchSongsStart({ page: currentPage, limit: 3 }));
+    dispatch(
+      fetchSongsStart({ page: currentPage, limit: 3, userId: userId ?? "" })
+    );
     if (genre !== "") {
-      dispatch(filterByGenreStart(genre));
+      dispatch(filterByGenreStart({ genre, userId }));
     }
   }, [dispatch, currentPage, genre]);
 
@@ -67,7 +72,7 @@ const HomeView = () => {
   };
   const handleSearch = () => {
     if (genre !== "") {
-      dispatch(filterByGenreStart(genre));
+      dispatch(filterByGenreStart({ genre, userId }));
     }
   };
   useEffect(() => {
@@ -76,14 +81,37 @@ const HomeView = () => {
   }, []);
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      dispatch(fetchSongsStart({ page: currentPage - 1, limit: 7 }));
+      dispatch(
+        fetchSongsStart({
+          page: currentPage - 1,
+          limit: 7,
+          userId: userId ?? "",
+        })
+      );
     }
   };
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      dispatch(fetchSongsStart({ page: currentPage + 1, limit: 7 }));
+      dispatch(
+        fetchSongsStart({
+          page: currentPage + 1,
+          limit: 7,
+          userId: userId ?? "",
+        })
+      );
     }
   };
+
+  if (!songs.length && !filteredSong.length) {
+    return (
+      <Box className="flex flex-col mt-5 justify-center p-2 items-center w-full h-auto">
+        <img src="./no-data.png" alt="No data" className="h-[500px]" />
+        <Link to="/add-song">
+          <Button className="w-full mt-3">Your music options here</Button>
+        </Link>
+      </Box>
+    );
+  }
 
   return (
     <Box className="flex flex-col justify-center items-center p-4 w-full self-center h-auto bg-[#e0f3dd]">

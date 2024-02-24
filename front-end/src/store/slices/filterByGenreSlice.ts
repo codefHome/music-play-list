@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FetchResponse, SongsState } from "../../interfaces/songTypes";
+import { FetchResponse, FilterSongState, FilterSongType } from "../../interfaces/songTypes";
 
-const initialState: SongsState = {
+const initialState: FilterSongState = {
   loading: false,
   data: [],
   error: null,
@@ -13,7 +13,7 @@ const filterByGenreSlice = createSlice({
   initialState,
   reducers: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    filterByGenreStart(state,action:PayloadAction<string>) {
+    filterByGenreStart(state,action:PayloadAction<FilterSongType>) {
       state.loading = true;
       state.error = null;
     },
