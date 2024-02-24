@@ -11,7 +11,7 @@ dotenv.config()
 
 const corsOptions = {
   origin:
-    `https://my-music-playlist.netlify.app/`,
+    'https://my-music-playlist.netlify.app',
 };
 app.use(cors(corsOptions))
 app.use(express.json());
