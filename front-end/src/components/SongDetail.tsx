@@ -4,6 +4,7 @@ import Button from "./Button";
 import InputField from "./InputField";
 import Typography from "./Typography";
 import { Song } from "../interfaces/songTypes";
+import { useAppSelector } from "../store/hooks";
 
 interface SongDetailProps {
   title: string;
@@ -26,10 +27,13 @@ const SongDetail = ({
   handleSubmit,
   onSubmit,
 }: SongDetailProps) => {
+  const { isEdit } = useAppSelector((state) => state.updateSong);
   return (
     <Box className="flex flex-col w-full justify-center items-center h-full gap-3">
       <Box
-        className="flex flex-col bg-white w-full lg:w-2/5 p-4 justify-center "
+        className={`flex flex-col bg-white w-full ${
+          isEdit ? "lg:w-full" : "lg:w-2/5"
+        } p-4 justify-center`}
         border="1px solid white"
         boxShadow="rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
       >

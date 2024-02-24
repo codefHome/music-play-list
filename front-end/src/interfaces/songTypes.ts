@@ -5,7 +5,7 @@ export interface Song {
   artist: string;
   album: string;
   genre: string;
-  videoUrl?:string | undefined
+  videoUrl:string 
 
 }
 
@@ -63,7 +63,11 @@ export interface AddSongState {
   
 }
 
-export interface CardProps extends FetchResponse {
+export interface CardProps {
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
   icon:ReactNode
 }
 export interface SongCountType {
