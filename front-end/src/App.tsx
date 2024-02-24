@@ -30,7 +30,7 @@ function App() {
   const matchedRoute = useRoutes(
     routes.map((route) => ({
       ...route,
-      // element: <ProtectedRoute {...route} />,
+      element: <ProtectedRoute {...route} />,
     }))
   );
 
