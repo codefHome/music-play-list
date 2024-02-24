@@ -7,29 +7,31 @@ import { Table, Row, Cell } from "./Table";
 import Typography from "./Typography";
 import { songAndAlbumStart } from "../store/slices/countSongAndAlbumOfArtistSlice";
 import Pagination from "./Pagination";
+import { getUserId } from "../utils/localStorage";
 
 const SongAndAlbumOfEachArtist = () => {
   const dispatch = useAppDispatch();
   const { data, currentPage, totalPages, loading } = useAppSelector(
     (state) => state.sondAndAlbum
   );
+  const userId = getUserId() ?? "";
   const tableHeaders = [
     { id: 1, title: "Artist" },
     { id: 2, title: "Total Songs" },
     { id: 2, title: "Total Album" },
   ];
   useEffect(() => {
-    dispatch(songAndAlbumStart({ page: currentPage, limit: 8 }));
+    dispatch(songAndAlbumStart({ page: currentPage, limit: 8, userId }));
   }, [dispatch]);
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      dispatch(songAndAlbumStart({ page: currentPage + 1, limit: 8 }));
+      dispatch(songAndAlbumStart({ page: currentPage + 1, limit: 8, userId }));
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      dispatch(songAndAlbumStart({ page: currentPage - 1, limit: 8 }));
+      dispatch(songAndAlbumStart({ page: currentPage - 1, limit: 8, userId }));
     }
   };
   return (
@@ -59,9 +61,17 @@ const SongAndAlbumOfEachArtist = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                variant="loading"
+                className="h-[200px]"
               >
-                <Typography variant="heading2">Loading ...</Typography>
+                <Typography className="absolute right-[50%] top-[50%] h-  text-black ">
+                  Loading ...
+                </Typography>
+              </Box>
+            ) : data?.length === 0 ? (
+              <Box className="flex  h-[200px] w-full  ">
+                <Typography className="absolute right-[50%] top-[50%]   text-black ">
+                  No Record Found
+                </Typography>
               </Box>
             ) : (
               data?.map((item, index) => (

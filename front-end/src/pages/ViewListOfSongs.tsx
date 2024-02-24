@@ -18,22 +18,25 @@ import Modal from "../components/Modal";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import SongCard from "../components/SongCard";
+import { getUserId } from "../utils/localStorage";
 const ViewListOfSong = () => {
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const { songs, currentPage, totalPages, loading } = useAppSelector(
     (state) => state.songs
   );
-  console.log({ songs });
   const { data: filteredSong } = useAppSelector((state) => state.filterSong);
   const { open } = useAppSelector((state) => state.updateSong);
   const [searchParams, setSearchParams] = useSearchParams();
   const [songTitle, setSongTitle] = useState<string>("");
   const dispatch = useAppDispatch();
   const [genre, setGenre] = useState<string>("");
+  const userId = getUserId() ?? "";
   useEffect(() => {
-    dispatch(fetchSongsStart({ page: currentPage, limit: 7 }));
+    dispatch(
+      fetchSongsStart({ page: currentPage, limit: 10, userId: userId ?? "" })
+    );
     if (genre !== "") {
-      dispatch(filterByGenreStart(genre));
+      dispatch(filterByGenreStart({ genre, userId }));
     }
   }, [dispatch, currentPage, genre]);
   const tableHeaders = [
@@ -86,19 +89,31 @@ const ViewListOfSong = () => {
   };
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      dispatch(fetchSongsStart({ page: currentPage + 1, limit: 7 }));
+      dispatch(
+        fetchSongsStart({
+          page: currentPage + 1,
+          limit: 10,
+          userId: userId ?? "",
+        })
+      );
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      dispatch(fetchSongsStart({ page: currentPage - 1, limit: 7 }));
+      dispatch(
+        fetchSongsStart({
+          page: currentPage - 1,
+          limit: 10,
+          userId: userId ?? "",
+        })
+      );
     }
   };
   const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
     setGenre(event.target.value);
   };
-
+  console.log({ loading });
   return (
     <Box className="flex flex-col h-auto lg:h-full bg-[#e0f3dd]">
       <Box className="flex flex-col w-full p-3">
@@ -115,7 +130,15 @@ const ViewListOfSong = () => {
             className="w-full md:w-2/5 "
             border="1px solid black"
           />
-          <Box className="flex md:hidden flex-col w-full gap-4">
+          <Box className="flex md:hidden flex-col w-full gap-4 relative">
+            {(songs?.length === 0 ||
+              (filteredSong?.length === 0 && genre !== "")) && (
+              <Box className="flex  h-[200px] w-full  ">
+                <Typography className="absolute right-[30%] top-[50%] h-  text-black ">
+                  No Record Found
+                </Typography>
+              </Box>
+            )}
             {(genre === "" ? songs ?? [] : filteredSong ?? [])?.map((song) => (
               <SongCard
                 key={song?._id}
@@ -147,29 +170,24 @@ const ViewListOfSong = () => {
                   </Row>
                 </thead>
                 <tbody style={{ position: "relative" }}>
-                  {songs?.length === 0 ||
-                    (filteredSong?.length === 0 && genre !== "" && (
-                      <Box
-                        color="black"
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        variant="loading"
-                      >
-                        <Typography variant="heading2">
-                          No Record Found
-                        </Typography>
-                      </Box>
-                    ))}
                   {loading ? (
                     <Box
                       color="black"
                       display="flex"
                       justifyContent="center"
                       alignItems="center"
-                      variant="loading"
+                      className="h-[200px]"
                     >
-                      <Typography variant="heading2">Loading ...</Typography>
+                      <Typography className="absolute right-[50%] top-[50%] h-  text-black ">
+                        Loading ...
+                      </Typography>
+                    </Box>
+                  ) : songs?.length === 0 ||
+                    (filteredSong?.length === 0 && genre !== "") ? (
+                    <Box className="flex  h-[200px] w-full  ">
+                      <Typography className="absolute right-[50%] top-[50%]   text-black ">
+                        No Record Found
+                      </Typography>
                     </Box>
                   ) : (
                     (genre === "" ? songs ?? [] : filteredSong ?? [])?.map(

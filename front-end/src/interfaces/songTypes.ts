@@ -37,7 +37,11 @@ export interface SongsState {
   loading: boolean;
   error: string | null;
 }
-
+export interface FilterSongState {
+  data: FetchResponse[];
+  loading: boolean;
+  error: string | null;
+}
 export interface FetchSongState extends SongsState {
   singleSong: FetchResponse;
 }
@@ -88,9 +92,7 @@ export interface SongAndAlbumType {
   title: number;
   album: number;
 }
-export interface CountSummaryState extends Omit<SongsState, "data"> {
-  data: CountCollectionType[];
-}
+
 export interface SongInGenreState {
   data: SongInGenre[];
   totalPages: number;
@@ -148,6 +150,9 @@ export interface PaginationType {
   page: number;
   limit: number;
 }
+export interface FetchAllSongWithPagination extends PaginationType{
+  userId:string;
+}
 
 export interface FetchSongwithPaginationState {
   songs: AllSongWithPagination[];
@@ -190,4 +195,15 @@ export interface SongInGenreSuccesResponse {
         song:boolean;
         album:boolean;
         genre:boolean;
+      }
+
+      export interface FilterSongType{
+        genre:string;
+        userId:string;
+      }
+
+      export interface CountSummaryState{
+        loading: boolean;
+        data: CountCollectionType[];
+       error: string | null;
       }

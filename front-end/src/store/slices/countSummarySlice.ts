@@ -12,7 +12,8 @@ const songSlices = createSlice({
   name: "countSummary",
   initialState,
   reducers: {
-    countSummaryStart(state) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    countSummaryStart(state,action:PayloadAction<{userId:string}>) {
       state.loading = true;
       state.error = null;
     },

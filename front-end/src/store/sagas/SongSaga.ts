@@ -5,16 +5,16 @@ import {
   fetchSongsStart,
   fetchSongsSuccess,
 } from "../slices/songSlices";
-import {   FetchSongSuccesResponse, PaginationType, } from "../../interfaces/songTypes";
+import {   FetchAllSongWithPagination, FetchSongSuccesResponse,  } from "../../interfaces/songTypes";
 import { getAllSongsAPI } from "../../api/songAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 
-function* fetchSongsSaga(action: PayloadAction<PaginationType>) {
+function* fetchSongsSaga(action: PayloadAction<FetchAllSongWithPagination>) {
   try {
    
-    const{page,limit}= action.payload
-    const response: FetchSongSuccesResponse = yield call(getAllSongsAPI,page,limit);
+    const{page,limit,userId}= action.payload
+    const response: FetchSongSuccesResponse = yield call(getAllSongsAPI,page,limit,userId);
   
     yield put(fetchSongsSuccess(response.data));
   } catch (error) {
