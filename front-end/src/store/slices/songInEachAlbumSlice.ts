@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PaginationType,  SongInAlbumPagination, SongInAlbumState } from "../../interfaces/songTypes";
+import { FetchAllSongWithPagination,  SongInAlbumPagination, SongInAlbumState } from "../../interfaces/songTypes";
 
 const initialState: SongInAlbumState = {
   loading: false,
@@ -15,7 +15,7 @@ const songInAlbumSlices = createSlice({
   initialState,
   reducers: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    songInAlbumStart(state,action: PayloadAction<PaginationType>) {
+    songInAlbumStart(state,action: PayloadAction<FetchAllSongWithPagination>) {
       state.loading = true;
       state.error = null;
     },

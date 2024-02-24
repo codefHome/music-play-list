@@ -6,30 +6,33 @@ import { Table, Row, Cell } from "./Table";
 import { songInGenreStart } from "../store/slices/songInEachGenreSlice";
 import Typography from "./Typography";
 import Pagination from "./Pagination";
+import { getUserId } from "../utils/localStorage";
 
 const SongInGenre = () => {
   const dispatch = useAppDispatch();
   const { data, currentPage, totalPages, loading } = useAppSelector(
     (state) => state.songInGenre
   );
+  const userId = getUserId() ?? "";
   const tableHeaders = [
     { id: 1, title: "Genre" },
     { id: 2, title: "Total Songs" },
   ];
   useEffect(() => {
-    dispatch(songInGenreStart({ page: currentPage, limit: 8 }));
+    dispatch(songInGenreStart({ page: currentPage, limit: 8, userId }));
   }, [dispatch]);
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      dispatch(songInGenreStart({ page: currentPage + 1, limit: 8 }));
+      dispatch(songInGenreStart({ page: currentPage + 1, limit: 8, userId }));
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      dispatch(songInGenreStart({ page: currentPage - 1, limit: 8 }));
+      dispatch(songInGenreStart({ page: currentPage - 1, limit: 8, userId }));
     }
   };
+
   return (
     <Box className="flex flex-col p-4 h-auto w-full">
       <Typography variant="heading1">
@@ -57,9 +60,17 @@ const SongInGenre = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                variant="loading"
+                className="h-[200px]"
               >
-                <Typography variant="heading2">Loading ...</Typography>
+                <Typography className="absolute right-[50%] top-[50%] h-  text-black ">
+                  Loading ...
+                </Typography>
+              </Box>
+            ) : data?.length === 0 ? (
+              <Box className="flex  h-[200px] w-full  ">
+                <Typography className="absolute right-[50%] top-[50%]   text-black ">
+                  No Record Found
+                </Typography>
               </Box>
             ) : (
               data?.map((item, index) => (

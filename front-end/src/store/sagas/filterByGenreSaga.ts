@@ -1,14 +1,15 @@
 import { takeLatest, put, call } from "redux-saga/effects";
 
 
-import { SongsState } from "../../interfaces/songTypes";
+import { FilterSongType, SongsState } from "../../interfaces/songTypes";
 import { filterByGenreAPI, } from "../../api/songAPI";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { filterByGenreFailure, filterByGenreStart, filterByGenreSuccess } from "../slices/filterByGenreSlice";
 
-function* filterByGenreSaga(action: PayloadAction<string>) {
+function* filterByGenreSaga(action: PayloadAction<FilterSongType>) {
+  const{userId,genre}=action.payload
   try {
-    const response: SongsState = yield call(filterByGenreAPI,action.payload);
+    const response: SongsState = yield call(filterByGenreAPI,genre,userId);
     yield put(filterByGenreSuccess(response.data));
   } catch (error) {
     if (error instanceof Error) {

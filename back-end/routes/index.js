@@ -27,15 +27,15 @@ const {
 var router = express.Router();
 
 router.post("/addSong", addSongMiddleware, addSong);
-router.get("/getAllSongs", getAllSongs);
-router.get("/filterByGenre/:genre", filterByGenre);
+router.get("/getAllSongs/:userId", getAllSongs);
+router.get("/filterByGenre/:genre/:userId", filterByGenre);
 router.get("/getSongById/:_id", getSongById);
 router.delete("/deleteSong/:_id", deleteSongMiddleware, hardDelete);
 router.put("/updateSong/:_id", updateSong);
-router.get("/songInEachGenre", countSongInEachGenre);
-router.get("/countSongAndAlbumForArtist", countSongAndAlbumOfArtist);
-router.get("/songInEachAlbum", countSongInEachAlbum);
-router.get("/countCollection", countCollection);
+router.get("/songInEachGenre/:userId", countSongInEachGenre);
+router.get("/countSongAndAlbumForArtist/:userId", countSongAndAlbumOfArtist);
+router.get("/songInEachAlbum/:userId", countSongInEachAlbum);
+router.get("/countCollection/:userId", countCollection);
 router.post("/register", registerUser);
 router.post("/login", signInMiddleware, signInController);
 

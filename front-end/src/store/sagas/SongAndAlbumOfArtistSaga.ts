@@ -1,15 +1,15 @@
 import { takeLatest, put, call } from "redux-saga/effects";
-import { PaginationType, SongAndAlbumSuccesResponse } from "../../interfaces/songTypes";
+import { FetchAllSongWithPagination, SongAndAlbumSuccesResponse } from "../../interfaces/songTypes";
 import { countSongAndAlbumOfArtistAPI } from "../../api/songAPI";
 import { songAndAlbumFailure, songAndAlbumStart, songAndAlbumSuccess } from "../slices/countSongAndAlbumOfArtistSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 
 
-function* songAndAlbumeSaga(action: PayloadAction<PaginationType>) {
+function* songAndAlbumeSaga(action: PayloadAction<FetchAllSongWithPagination>) {
   try {
-    const{page,limit}= action.payload
-    const response: SongAndAlbumSuccesResponse = yield call(countSongAndAlbumOfArtistAPI,page,limit);
+    const{page,limit,userId}= action.payload
+    const response: SongAndAlbumSuccesResponse = yield call(countSongAndAlbumOfArtistAPI,page,limit,userId);
     yield put(songAndAlbumSuccess(response.data));
   } catch (error) {
     if (error instanceof Error) {

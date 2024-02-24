@@ -11,6 +11,7 @@ import SongInEachAlbum from "../components/SongInEachAlbum";
 import Button from "../components/Button";
 import ComboBox from "../components/ComboBox";
 import { VisibleType } from "../interfaces/songTypes";
+import { getUserId } from "../utils/localStorage";
 
 const StatView = () => {
   const initialValue = {
@@ -47,8 +48,9 @@ const StatView = () => {
     setSelectedOption(selectedValue);
     setVisible(initialValue);
   };
+  const userId = getUserId() ?? "";
   useEffect(() => {
-    dispatch(countSummaryStart());
+    dispatch(countSummaryStart({ userId }));
   }, [dispatch]);
   const options = [
     { label: "Count Summary", value: "count" },
@@ -56,8 +58,7 @@ const StatView = () => {
     { label: "Total Song and Album of Artist", value: "song" },
     { label: "Total song in Album", value: "album" },
   ];
-  console.log({ selectedOption });
-  console.log(visible);
+
   return (
     <Box
       display="flex"
@@ -113,7 +114,7 @@ const StatView = () => {
               borderRadius="15px"
               boxShadow="rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px"
             >
-              <CommonPieChart chartData={countSummary ?? []} />
+              <CommonPieChart chartData={countSummary} />
             </Box>
           )}
           {(visible.genre || selectedOption === "genre") && (
