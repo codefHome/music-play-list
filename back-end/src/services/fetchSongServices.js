@@ -53,19 +53,19 @@ exports.getAllSongService = async (page,limit) => {
         {
           $group: {
             _id: null,
-            total_song: { $addToSet: "$title" },
-            total_album: { $addToSet: "$album" },
-            total_artist: { $addToSet: "$artist" },
-            total_genre: { $addToSet: "$genre" },
+            song: { $addToSet: "$title" },
+            album: { $addToSet: "$album" },
+            artist: { $addToSet: "$artist" },
+            genre: { $addToSet: "$genre" },
           },
         },
         {
           $project: {
             _id: 0,
-            total_song: { $size: "$total_song" },
-            total_album: { $size: "$total_album" },
-            total_artist: { $size: "$total_artist" },
-            total_genre: { $size: "$total_genre" },
+            song: { $size: "$song" },
+            album: { $size: "$album" },
+            artist: { $size: "$artist" },
+            genre: { $size: "$genre" },
           },
         },
       ];
