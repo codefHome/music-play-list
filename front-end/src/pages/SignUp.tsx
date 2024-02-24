@@ -59,69 +59,40 @@ const SignUp = () => {
                   color="red"
                   textAlign="center"
                   fontSize="12px"
-                  className="w-fit"
+                  className="w-fit self-center pt-1"
                 >
                   {errors?.userName?.message}
                 </Typography>
               )}
             </Box>
-            <Box display="flex" flexDirection="column">
-              <EmailInput
-                id="email"
-                placeholder="Email"
-                label="Email"
-                control={control}
-              />
-              {!!errors.email && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                  className="w-fit"
-                >
-                  {errors?.email?.message}
-                </Typography>
-              )}
-            </Box>
-            <Box display="flex" flexDirection="column">
-              <PasswordField
-                id="password"
-                placeholder="Password"
-                control={control}
-                label="Password"
-              />
-              {!!errors.password && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                  className="w-fit"
-                >
-                  {errors?.password?.message}
-                </Typography>
-              )}
-            </Box>
-            <Box display="flex" flexDirection="column">
-              <PasswordField
-                id="confirmPassword"
-                placeholder="Confirm Password"
-                control={control}
-                label="Confirm "
-              />
-              {!!errors.confirmPassword && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                  className="w-fit"
-                >
-                  {errors?.confirmPassword?.message}
-                </Typography>
-              )}
-            </Box>
+
+            <EmailInput
+              id="email"
+              placeholder="Email"
+              label="Email"
+              control={control}
+              errors={errors.email}
+              errorMessage={errors?.email?.message ?? ""}
+            />
+
+            <PasswordField
+              id="password"
+              placeholder="Password"
+              control={control}
+              label="Password"
+              errors={errors.password}
+              errorMessage={errors?.password?.message ?? ""}
+            />
+
+            <PasswordField
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              control={control}
+              label="Confirm "
+              errorMessage={errors?.confirmPassword?.message ?? ""}
+              errors={errors.confirmPassword}
+            />
+
             <Box
               display="flex"
               justifyContent="center"

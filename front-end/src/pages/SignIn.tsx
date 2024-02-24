@@ -17,48 +17,24 @@ const SignIn = () => {
         >
           <Typography variant="heading1">Login to Your Account</Typography>
 
-          <Box
-            display="flex"
-            flexDirection="column"
-            backgroundColor="transparent"
-            className="w-fit"
-          >
-            <EmailInput
-              id="email"
-              placeholder="Email"
-              label="Email"
-              control={control}
-            />
-            {!!errors.email && (
-              <Typography
-                marginTop="-5px"
-                color="red"
-                textAlign="center"
-                fontSize="12px"
-                className="w-fit"
-              >
-                {errors?.email?.message}
-              </Typography>
-            )}
-          </Box>
+          <EmailInput
+            id="email"
+            placeholder="Email"
+            label="Email"
+            control={control}
+            errors={errors?.email}
+            errorMessage={errors?.email?.message ?? ""}
+          />
+
           <Box display="flex" flexDirection="column">
             <PasswordField
               id="password"
               placeholder="Password"
               control={control}
               label="Password"
+              errors={errors?.password}
+              errorMessage={errors?.password?.message ?? ""}
             />
-            {!!errors.password && (
-              <Typography
-                marginTop="-5px"
-                color="red"
-                textAlign="center"
-                fontSize="12px"
-                className="w-fit"
-              >
-                {errors?.password?.message}
-              </Typography>
-            )}
           </Box>
           <Box
             display="flex"

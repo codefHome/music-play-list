@@ -54,24 +54,28 @@ interface StyledCellProps
 }
 
 const Cell = styled.td<StyledCellProps>`
-  width: 100% ${space} ${color} ${layout} ${flexbox}
+  width: 25%;
+  word-break: break-all;
+  white-space: wrap;
+  color: black;
+  ${space} ${color} ${layout} ${flexbox}
     ${variant({
-      variants: {
-        primary: {
-          fontSize: "20px",
-          fontWeight: "bold",
-          color: "blue",
-          textAlign: "center",
-          borderBottom: "1px solid gray",
-        },
-        secondary: {
-          fontSize: "14px",
-          fontWeight: "normal",
-          color: "black",
-          textAlign: "center",
-        },
+    variants: {
+      primary: {
+        fontSize: ["16px", "20px"],
+        fontWeight: "bold",
+        color: "orange",
+        textAlign: "center",
+        borderBottom: "1px solid gray",
       },
-    })};
+      secondary: {
+        fontSize: "14px",
+        fontWeight: "normal",
+        color: "black",
+        textAlign: "center",
+      },
+    },
+  })};
 `;
 
 export { Table, Row, Cell };

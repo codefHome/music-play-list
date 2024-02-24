@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { setUserId } from "../utils/localStorage";
 import { saveToken } from "../utils/sessionUtils";
+import { setToggleAuth } from "../store/slices/registerSlice";
 
 const useLoginForm = () => {
   const dispatch = useAppDispatch();
@@ -53,7 +54,9 @@ const useLoginForm = () => {
         toast.dismiss(toastId);
       }, 2000);
     }
-
+if(state.login.successData.msg?.toLowerCase() === 'user not found'){
+  dispatch(setToggleAuth());
+}
     reset();
   };
   return {

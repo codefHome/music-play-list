@@ -42,7 +42,11 @@ const SongAndAlbumOfEachArtist = () => {
           <thead>
             <Row>
               {tableHeaders.map((item) => (
-                <Cell variant="primary" key={item?.id}>
+                <Cell
+                  variant="primary"
+                  className="text-orange-500 text-lg"
+                  key={item?.id}
+                >
                   {item.title}
                 </Cell>
               ))}

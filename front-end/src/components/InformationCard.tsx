@@ -9,16 +9,10 @@ const InformationCard = ({
   genre,
 }: InformationCardType) => {
   return (
-    <Box
-      width="200px"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Typography variant="playerInfo">{artist}</Typography>
-      <Typography variant="playerInfo">{title}</Typography>
-      <Typography variant="playerInfo">{album}</Typography>
+    <Box className="flex flex-wrap lg:flex-col justify-start lg:justify-center items-center w-full">
+      <Typography variant="playerInfo">{artist},&nbsp;</Typography>
+      <Typography variant="playerInfo">{title},&nbsp;</Typography>
+      <Typography variant="playerInfo">{album},&nbsp;</Typography>
       <Typography variant="playerInfo">{genre}</Typography>
     </Box>
   );
