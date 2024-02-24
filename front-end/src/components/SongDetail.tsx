@@ -4,6 +4,7 @@ import Button from "./Button";
 import InputField from "./InputField";
 import Typography from "./Typography";
 import { Song } from "../interfaces/songTypes";
+import { useAppSelector } from "../store/hooks";
 
 interface SongDetailProps {
   title: string;
@@ -26,118 +27,73 @@ const SongDetail = ({
   handleSubmit,
   onSubmit,
 }: SongDetailProps) => {
+  const { isEdit } = useAppSelector((state) => state.updateSong);
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      width="100%"
-      p={1}
-      justifyContent="center"
-      alignItems="center"
-      height="90%"
-    >
-      <Box variant="secondary" height="max-content">
+    <Box className="flex flex-col w-full justify-center items-center h-full gap-3">
+      <Box
+        className={`flex flex-col bg-white w-full ${
+          isEdit ? "lg:w-full" : "lg:w-2/5"
+        } p-4 justify-center`}
+        border="1px solid white"
+        boxShadow="rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
+      >
         <Typography
           color="blue"
           mt="-5px"
           mb="5px"
           fontSize="20px"
           fontWeight="bold"
+          className="text-center"
         >
           {title}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box display="flex" flexDirection="column">
-            <Box display="flex" flexDirection="column">
-              <InputField
-                id="title"
-                placeholder="please enter title"
-                control={control}
-                label="Title"
-              />
-              {!!errors.title && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                >
-                  {errors?.title?.message}
-                </Typography>
-              )}
-            </Box>
-            <Box display="flex" flexDirection="column">
-              <InputField
-                id="artist"
-                placeholder="please enter artist full Name"
-                control={control}
-                label="Artist"
-              />
-              {!!errors.artist && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                >
-                  {errors?.artist?.message}
-                </Typography>
-              )}
-            </Box>
-            <Box display="flex" flexDirection="column">
-              <InputField
-                id="album"
-                placeholder="please enter album name"
-                control={control}
-                label="Album"
-              />
-              {!!errors.album && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                >
-                  {errors?.album?.message}
-                </Typography>
-              )}
-            </Box>
-            <Box display="flex" flexDirection="column">
-              <InputField
-                id="genre"
-                placeholder="please enter genre"
-                control={control}
-                label="Genre"
-              />
-              {!!errors.genre && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                >
-                  {errors?.genre?.message}
-                </Typography>
-              )}
-            </Box>
-            <Box display="flex" flexDirection="column">
-              <InputField
-                id="videoUrl"
-                placeholder="please enter video Url"
-                control={control}
-                label="Video URL"
-              />
-              {!!errors.videoUrl && (
-                <Typography
-                  marginTop="-5px"
-                  color="red"
-                  textAlign="center"
-                  fontSize="12px"
-                >
-                  {errors?.videoUrl?.message}
-                </Typography>
-              )}
-            </Box>
+          <Box className="flex flex-col px-5 py-3 w-full gap-2">
+            <InputField
+              id="title"
+              placeholder="please enter title"
+              control={control}
+              label="Title"
+              errorMessage={errors?.title?.message}
+              errors={errors.title}
+            />
+
+            <InputField
+              id="artist"
+              placeholder="please enter artist full Name"
+              control={control}
+              label="Artist"
+              errorMessage={errors?.artist?.message}
+              errors={errors.artist}
+            />
+
+            <InputField
+              id="album"
+              placeholder="please enter album name"
+              control={control}
+              label="Album"
+              errorMessage={errors?.album?.message}
+              errors={errors.album}
+            />
+
+            <InputField
+              id="genre"
+              placeholder="please enter genre"
+              control={control}
+              label="Genre"
+              errorMessage={errors?.genre?.message}
+              errors={errors.genre}
+            />
+
+            <InputField
+              id="videoUrl"
+              placeholder="https://www.youtube.com/watch?v=sldfjlsdkf"
+              control={control}
+              label="Video URL"
+              errorMessage={errors?.videoUrl?.message}
+              errors={errors.videoUrl}
+            />
+
             <Box
               display="flex"
               justifyContent="center"
@@ -145,7 +101,7 @@ const SongDetail = ({
               mt={3}
             >
               <Button type="submit" variant="primary" color="black">
-                {buttonLabel}{" "}
+                {buttonLabel}
               </Button>
             </Box>
           </Box>

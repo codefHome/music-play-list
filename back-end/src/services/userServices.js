@@ -24,7 +24,7 @@ exports.signInService = async (email, password) => {
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
-      return {success:{msg:'Invalid credentials',success:false} }
+      return {successData:{msg:'Invalid credentials',success:false} }
     }
     const tokenPayload = {
       userId: user.userId,
@@ -45,7 +45,7 @@ exports.signInService = async (email, password) => {
     successData:{msg:'SignIn Successfully',success:true}
  };
   } catch (err) {
-    return err;
+    return err
   }
 };
 

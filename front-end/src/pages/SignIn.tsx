@@ -1,4 +1,3 @@
-import React from "react";
 import Box from "../components/Box";
 import Button from "../components/Button";
 import EmailInput from "../components/EmailInput";
@@ -11,56 +10,37 @@ const SignIn = () => {
   return (
     <Box variant="primary">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box variant="loginBox" backgroundImage="url(/bg-image.png)">
+        <Box
+          variant="loginBox"
+          backgroundImage="url(/bg-image.png)"
+          className="flex flex-col gap-4 w-fit"
+        >
           <Typography variant="heading1">Login to Your Account</Typography>
 
-          <Box
-            display="flex"
-            flexDirection="column"
-            backgroundColor="transparent"
-          >
-            <EmailInput
-              id="email"
-              placeholder="Email"
-              label="Email"
-              control={control}
-            />
-            {!!errors.email && (
-              <Typography
-                marginTop="-5px"
-                color="red"
-                textAlign="center"
-                fontSize="12px"
-                width="400px"
-              >
-                {errors?.email?.message}
-              </Typography>
-            )}
-          </Box>
+          <EmailInput
+            id="email"
+            placeholder="Email"
+            label="Email"
+            control={control}
+            errors={errors?.email}
+            errorMessage={errors?.email?.message ?? ""}
+          />
+
           <Box display="flex" flexDirection="column">
             <PasswordField
               id="password"
               placeholder="Password"
               control={control}
               label="Password"
+              errors={errors?.password}
+              errorMessage={errors?.password?.message ?? ""}
             />
-            {!!errors.password && (
-              <Typography
-                marginTop="-5px"
-                color="red"
-                textAlign="center"
-                fontSize="12px"
-                width="400px"
-              >
-                {errors?.password?.message}
-              </Typography>
-            )}
           </Box>
           <Box
             display="flex"
             justifyContent="center"
             alignItems="center"
-            width="500px"
+            className="w-fit"
           >
             <Typography variant="heading3">Forgot Password</Typography>
           </Box>
@@ -68,7 +48,7 @@ const SignIn = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            width="500px"
+            className="w-fit"
           >
             <Button type="submit" variant="auth">
               Sign In

@@ -30,9 +30,7 @@ interface InputProps
 
 const TextField = styled.input<InputProps>`
   padding: 8px;
-  margin: 4px;
-  width: 100%;
-
+  color: black;
   ${space}
   ${color}
   ${layout}

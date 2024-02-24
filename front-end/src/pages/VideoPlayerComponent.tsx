@@ -1,4 +1,3 @@
-import React from "react";
 import YouTube from "react-youtube";
 import Box from "../components/Box";
 
@@ -11,24 +10,28 @@ interface MusicPlayerProps {
   autoPlay?: number;
 }
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({
+const MusicPlayer = ({
   url,
   handleOnStateChange,
-  width,
   height,
   autoPlay = 0,
-}) => {
+}: MusicPlayerProps) => {
   const opts = {
     height,
-    width,
+    width: "100%",
     playerVars: {
       autoplay: autoPlay,
     },
   };
 
   return (
-    <Box width={width}>
-      <YouTube videoId={url} onStateChange={handleOnStateChange} opts={opts} />
+    <Box className="w-full">
+      <YouTube
+        className="w-full"
+        videoId={url}
+        onStateChange={handleOnStateChange}
+        opts={opts}
+      />
     </Box>
   );
 };

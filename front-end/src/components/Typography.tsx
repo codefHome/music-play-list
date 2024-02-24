@@ -50,7 +50,7 @@ const Typography = styled.p<StyledTextProps>`
       },
       heading1: {
         fontWeight: "bold",
-        fontSize: "20px",
+        fontSize: ["16px", "20px"],
         color: "blue",
         textAlign: "center",
       },
@@ -72,9 +72,10 @@ const Typography = styled.p<StyledTextProps>`
       playerInfo: {
         fontSize: "12px",
         color: "#000000",
-        whiteSpace: "nowrap",
+        whiteSpace: "wrap",
+        wordBreak: "break-all",
         cursor: "pointer",
-        width: "150px",
+        width: "auto",
         overflow: "hidden",
         textOverflow: "ellipsis",
       },
